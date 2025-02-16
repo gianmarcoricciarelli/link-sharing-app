@@ -2,6 +2,10 @@
 
 @theme {
     --color-lsa-red: #ff3939;
+
+    --breakpoint-mobile: 375px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1440px;
 }
 
 @font-face {
