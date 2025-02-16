@@ -1,8 +1,15 @@
+import Login from './pages/login/login'
+import { User } from './types'
+
 function App() {
-    return (
+    const user: Partial<User> = JSON.parse(localStorage.getItem('lsa') || '{}')
+
+    return user.email ? (
         <div>
-            <p className='text-lsa-red'>Hello</p>
+            <p>App</p>
         </div>
+    ) : (
+        <Login />
     )
 }
 
