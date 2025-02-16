@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 
 @theme {
+    --color-lsa-borders: #d9d9d9;
+    --color-lsa-purple: #633cff;
     --color-lsa-red: #ff3939;
 
     --breakpoint-mobile: 375px;
@@ -14,5 +16,14 @@
 }
 
 html {
+    height: 100%;
     font-family: 'Instrument Sans';
+}
+
+body {
+    height: 100%;
+}
+
+#root {
+    height: 100%;
 }
