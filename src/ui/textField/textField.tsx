@@ -1,9 +1,10 @@
 import clsx from 'clsx'
-import { MouseEventHandler, ReactNode, useRef } from 'react'
+import { ChangeEventHandler, MouseEventHandler, ReactNode, useRef } from 'react'
 import Text from '../text/text'
 
 interface TextFieldProps {
     placeholder: string
+    onChange: ChangeEventHandler<HTMLInputElement>
     icon?: ReactNode
     value?: string
     label?: string
@@ -12,6 +13,7 @@ interface TextFieldProps {
 
 export default function TextField({
     placeholder,
+    onChange,
     icon,
     value,
     label,
@@ -64,6 +66,7 @@ export default function TextField({
                     type='text'
                     placeholder={placeholder}
                     value={value}
+                    onChange={onChange}
                 />
                 {error && (
                     <Text context='body' size='small' color='lsa-red'>
