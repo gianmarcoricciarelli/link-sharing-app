@@ -1,6 +1,6 @@
 import { Color } from '@/types'
 import clsx from 'clsx'
-import { ReactNode } from 'react'
+import { MouseEventHandler, ReactNode } from 'react'
 
 interface TextProps {
     className?: string
@@ -8,6 +8,7 @@ interface TextProps {
     size?: 'medium' | 'small'
     style?: 'bold'
     color?: Color
+    onClick?: MouseEventHandler<HTMLSpanElement>
     children: ReactNode
 }
 
@@ -17,6 +18,7 @@ export default function Text({
     size = 'medium',
     style,
     color = 'lsa-dark-gray',
+    onClick,
     children
 }: TextProps) {
     return (
@@ -34,6 +36,7 @@ export default function Text({
                 'text-xs': context === 'body' && size === 'small',
                 'font-bold': style === 'bold'
             })}
+            onClick={onClick}
         >
             {children}
         </span>

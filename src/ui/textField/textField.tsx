@@ -4,6 +4,7 @@ import Text from '../text/text'
 
 interface TextFieldProps {
     placeholder: string
+    name: string
     onChange: ChangeEventHandler<HTMLInputElement>
     icon?: ReactNode
     value?: string
@@ -13,6 +14,7 @@ interface TextFieldProps {
 
 export default function TextField({
     placeholder,
+    name,
     onChange,
     icon,
     value,
@@ -63,6 +65,7 @@ export default function TextField({
                             'text-lsa-red': error
                         }
                     )}
+                    name={name}
                     type='text'
                     placeholder={placeholder}
                     value={value}

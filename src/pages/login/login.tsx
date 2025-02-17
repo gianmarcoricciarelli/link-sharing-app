@@ -1,12 +1,23 @@
+import { UserContext } from '@/contexts/user'
+import { User } from '@/types'
 import DevLinks from '@/ui/devlinks/devlinks'
 import Text from '@/ui/text/text'
 import LoginForm from '@/widgets/loginForm/loginForm'
 import clsx from 'clsx'
-import { FormEventHandler } from 'react'
+import { FormEventHandler, useContext } from 'react'
+import { useNavigate } from 'react-router'
 
 export default function Login() {
+    const navigateTo = useNavigate()
+
+    const { setUser } = useContext(UserContext)
+
     const onLoginFormSubmitHandler: FormEventHandler<HTMLFormElement> = (e) => {
-        console.log(e)
+        const newUser = Object.fromEntries(
+            new FormData(e.target as HTMLFormElement)
+        )
+        localStorage.setItem('lsa', JSON.stringify(newUser))
+        setUser(newUser as User)
     }
 
     return (
@@ -31,7 +42,13 @@ export default function Login() {
                         <Text context='body' size='medium' color='lsa-grey'>
                             Don't have an account?
                         </Text>
-                        <Text context='body' size='medium' color='lsa-purple'>
+                        <Text
+                            className='hover:cursor-pointer'
+                            context='body'
+                            size='medium'
+                            color='lsa-purple'
+                            onClick={() => navigateTo('/create-account')}
+                        >
                             Create account
                         </Text>
                     </div>
