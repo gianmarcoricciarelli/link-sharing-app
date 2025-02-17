@@ -19,6 +19,7 @@ export default function Login() {
                         Add your details below to get back into the app
                     </Text>
                 </div>
+                <div className='flex flex-col gap-6'></div>
             </div>
         </div>
     )

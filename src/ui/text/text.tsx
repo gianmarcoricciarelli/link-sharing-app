@@ -17,19 +17,20 @@ export default function Text({
     size = 'medium',
     style,
     color = 'lsa-dark-gray',
-    children,
+    children
 }: TextProps) {
     return (
         <span
             className={clsx(className, {
                 'text-lsa-dark-gray': color === 'lsa-dark-gray',
                 'text-lsa-grey': color === 'lsa-grey',
+                'text-lsa-red': color === 'lsa-red',
                 'text-[32px]': context === 'heading' && size === 'medium',
                 'text-base':
                     (context === 'heading' && size === 'small') ||
                     (context === 'body' && size === 'medium'),
                 'text-xs': context === 'body' && size === 'small',
-                'font-bold': style === 'bold',
+                'font-bold': style === 'bold'
             })}
         >
             {children}
