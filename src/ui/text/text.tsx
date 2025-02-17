@@ -24,7 +24,9 @@ export default function Text({
             className={clsx(className, {
                 'text-lsa-dark-gray': color === 'lsa-dark-gray',
                 'text-lsa-grey': color === 'lsa-grey',
+                'text-lsa-purple': color === 'lsa-purple',
                 'text-lsa-red': color === 'lsa-red',
+                'text-white': color === 'white',
                 'text-[32px]': context === 'heading' && size === 'medium',
                 'text-base':
                     (context === 'heading' && size === 'small') ||

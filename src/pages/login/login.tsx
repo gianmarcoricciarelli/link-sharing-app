@@ -1,20 +1,12 @@
 import DevLinks from '@/ui/devlinks/devlinks'
 import Text from '@/ui/text/text'
-import TextField from '@/ui/textField/textField'
-import EmailIcon from '@icons/icon-email.svg?react'
-import PasswordIcon from '@icons/icon-password.svg?react'
+import LoginForm from '@/widgets/loginForm/loginForm'
 import clsx from 'clsx'
-import { ChangeEventHandler, useState } from 'react'
+import { FormEventHandler } from 'react'
 
 export default function Login() {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
-    const onEmailTextChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-        setEmail(e.target.value)
-    }
-    const onPasswordTextChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-        setPassword(e.target.value)
+    const onLoginFormSubmitHandler: FormEventHandler<HTMLFormElement> = (e) => {
+        console.log(e)
     }
 
     return (
@@ -34,20 +26,15 @@ export default function Login() {
                     </Text>
                 </div>
                 <div className='flex flex-col gap-6'>
-                    <TextField
-                        placeholder='e.g. alex@email.com'
-                        label='Email address'
-                        icon={<EmailIcon />}
-                        value={email}
-                        onChange={onEmailTextChange}
-                    />
-                    <TextField
-                        placeholder='Enter your password'
-                        label='Password'
-                        icon={<PasswordIcon />}
-                        value={password}
-                        onChange={onPasswordTextChange}
-                    />
+                    <LoginForm onSubmit={onLoginFormSubmitHandler} />
+                    <div className='flex flex-col text-center'>
+                        <Text context='body' size='medium' color='lsa-grey'>
+                            Don't have an account?
+                        </Text>
+                        <Text context='body' size='medium' color='lsa-purple'>
+                            Create account
+                        </Text>
+                    </div>
                 </div>
             </div>
         </div>

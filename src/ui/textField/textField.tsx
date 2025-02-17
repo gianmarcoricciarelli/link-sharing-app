@@ -43,7 +43,7 @@ export default function TextField({
                     'px-4 py-3',
                     'bg-white',
                     'border-[1px] border-lsa-borders rounded-lg focus-within:border-lsa-purple',
-                    'focus-within:shadow-text-field',
+                    'focus-within:shadow-lsa-purple-blur',
                     'flex items-center gap-3',
                     {
                         'border-lsa-red focus-within:border-lsa-red focus-within:shadow-none!':
