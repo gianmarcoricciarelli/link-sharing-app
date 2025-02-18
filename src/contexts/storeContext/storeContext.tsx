@@ -24,7 +24,6 @@ export function StoreContextProvider({ children }: { children: ReactNode }) {
                 key === 'loggedUser' && value === null ? undefined : value
         )
     )
-    console.log('StoreContextProvider ~ store:', store)
 
     const setLoggedUser = (loggedUser: User) => {
         setStore((prevStore) => {

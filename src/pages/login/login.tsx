@@ -25,7 +25,7 @@ export default function Login() {
         }
 
         setLoggedUser({ ...loggedUser })
-        navigateTo('/')
+        navigateTo('/user')
     }
 
     return (

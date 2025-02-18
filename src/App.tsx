@@ -1,5 +1,6 @@
+import clsx from 'clsx'
 import { useContext, useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 import { StoreContext } from './contexts/storeContext/storeContext'
 
 function App() {
@@ -13,7 +14,12 @@ function App() {
         }
     }, [getLoggedUser, navigateTo])
 
-    return <Outlet />
+    return (
+        <div className={clsx('flex flex-col gap-2')}>
+            <div>navbar</div>
+            <div>other</div>
+        </div>
+    )
 }
 
 export default App
