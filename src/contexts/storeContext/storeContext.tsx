@@ -34,6 +34,8 @@ export function StoreContextProvider({ children }: { children: ReactNode }) {
                 users.push(loggedUser)
             }
 
+            localStorage.setItem('lsa', JSON.stringify({ users, loggedUser }))
+
             return { users, loggedUser }
         })
     }

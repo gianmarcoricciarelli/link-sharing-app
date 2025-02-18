@@ -17,13 +17,9 @@ export default function CreateAccount() {
     > = (e) => {
         const newUser = Object.fromEntries(
             new FormData(e.target as HTMLFormElement)
-        )
-        localStorage.setItem(
-            'lsa-user-info',
-            JSON.stringify({ ...newUser, isLoggedIn: 'true' })
-        )
+        ) as User
 
-        setLoggedUser({ ...newUser, isLoggedIn: true } as User)
+        setLoggedUser({ ...newUser })
         navigateTo('/')
     }
 

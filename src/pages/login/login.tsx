@@ -10,18 +10,21 @@ import { useNavigate } from 'react-router'
 export default function Login() {
     const navigateTo = useNavigate()
 
-    const { setLoggedUser } = useContext(StoreContext)
+    const { setLoggedUser, getUsers } = useContext(StoreContext)
 
     const onLoginFormSubmitHandler: FormEventHandler<HTMLFormElement> = (e) => {
-        const newUser = Object.fromEntries(
+        const loggedUser = Object.fromEntries(
             new FormData(e.target as HTMLFormElement)
-        )
-        localStorage.setItem(
-            'lsa-user-info',
-            JSON.stringify({ ...newUser, isLoggedIn: 'true' })
-        )
+        ) as User
+        const users = getUsers()
 
-        setLoggedUser({ ...newUser, isLoggedIn: true } as User)
+        if (!users.find((u) => u.email === loggedUser.email)) {
+            navigateTo('/create-account')
+
+            return
+        }
+
+        setLoggedUser({ ...loggedUser })
         navigateTo('/')
     }
 
