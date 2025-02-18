@@ -10,7 +10,7 @@ export default function CreateAccount() {
     return (
         <div
             className={clsx(
-                'p-8',
+                'h-full p-8',
                 'flex flex-col tablet:justify-center tablet:items-center gap-16 tablet:gap-12'
             )}
         >
@@ -18,7 +18,7 @@ export default function CreateAccount() {
             <div
                 className={clsx(
                     'tablet:bg-white',
-                    'tablet:p-10',
+                    'tablet:w-[476px] tablet:p-10',
                     'tablet:rounded-xl',
                     'flex flex-col gap-10'
                 )}

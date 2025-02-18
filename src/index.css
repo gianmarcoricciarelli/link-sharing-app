@@ -23,14 +23,5 @@
 }
 
 html {
-    height: 100%;
     font-family: 'Instrument Sans';
-}
-
-body {
-    height: 100%;
-}
-
-#root {
-    height: 100%;
 }

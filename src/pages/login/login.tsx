@@ -36,7 +36,7 @@ export default function Login() {
             <div
                 className={clsx(
                     'tablet:bg-white',
-                    'tablet:p-10',
+                    'tablet:w-[476px] tablet:p-10',
                     'tablet:rounded-xl',
                     'flex flex-col gap-10'
                 )}
