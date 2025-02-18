@@ -1,11 +1,31 @@
+import { UserContext } from '@contexts/user'
+import { User } from '@customTypes/index'
 import DevLinks from '@ui/devlinks/devlinks'
 import Text from '@ui/text/text'
 import CreateAccountForm from '@widgets/createAccountForm/createAccountForm'
 import clsx from 'clsx'
+import { FormEventHandler, useContext } from 'react'
 import { useNavigate } from 'react-router'
 
 export default function CreateAccount() {
     const navigateTo = useNavigate()
+
+    const { setUser } = useContext(UserContext)
+
+    const onCreateAccountFormSubmitHandler: FormEventHandler<
+        HTMLFormElement
+    > = (e) => {
+        const newUser = Object.fromEntries(
+            new FormData(e.target as HTMLFormElement)
+        )
+        localStorage.setItem(
+            'lsa-user-info',
+            JSON.stringify({ ...newUser, isLoggedIn: 'true' })
+        )
+
+        setUser({ ...newUser, isLoggedIn: true } as User)
+        navigateTo('/')
+    }
 
     return (
         <div
@@ -36,7 +56,9 @@ export default function CreateAccount() {
                     </Text>
                 </div>
                 <div className='flex flex-col gap-6'>
-                    <CreateAccountForm />
+                    <CreateAccountForm
+                        onSubmit={onCreateAccountFormSubmitHandler}
+                    />
                     <div
                         className={clsx(
                             'flex flex-col tablet:flex-row tablet:justify-center text-center'

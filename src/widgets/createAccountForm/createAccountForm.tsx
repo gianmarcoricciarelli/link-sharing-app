@@ -6,7 +6,11 @@ import TextField from '@ui/textField/textField'
 import { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import { z } from 'zod'
 
-export default function CreateAccountForm() {
+export default function CreateAccountForm({
+    onSubmit
+}: {
+    onSubmit: FormEventHandler<HTMLFormElement>
+}) {
     const [email, setEmail] = useState('')
     const [emailError, setEmailError] = useState('')
     const [password, setPassword] = useState('')
@@ -76,6 +80,8 @@ export default function CreateAccountForm() {
 
             return
         }
+
+        onSubmit(e)
     }
 
     return (
