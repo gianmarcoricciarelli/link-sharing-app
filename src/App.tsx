@@ -1,12 +1,19 @@
-import { useContext } from 'react'
-import { Outlet } from 'react-router'
+import { useContext, useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router'
 import { UserContext } from './contexts/user'
-import Login from './pages/login/login'
 
 function App() {
+    const navigateTo = useNavigate()
+
     const { user } = useContext(UserContext)
 
-    return !user.email ? <Login /> : <Outlet />
+    useEffect(() => {
+        if (!user.isLoggedIn) {
+            navigateTo('/login')
+        }
+    }, [navigateTo, user.isLoggedIn])
+
+    return <Outlet />
 }
 
 export default App

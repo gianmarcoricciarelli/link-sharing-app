@@ -13,13 +13,13 @@ interface UserContextProps {
 }
 
 export const UserContext = createContext<UserContextProps>({
-    user: { email: '', password: '' },
+    user: { email: '', password: '', isLoggedIn: false },
     setUser: () => {}
 })
 
 export function UserContextProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User>(
-        JSON.parse(localStorage.getItem('lsa') || '{}')
+        JSON.parse(localStorage.getItem('lsa-user-info') || '{}')
     )
 
     return (

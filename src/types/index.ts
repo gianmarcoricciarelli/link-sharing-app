@@ -8,4 +8,5 @@ export type Color =
 export type User = {
     email: string
     password: string
+    isLoggedIn: boolean
 }

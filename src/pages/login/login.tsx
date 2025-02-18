@@ -16,14 +16,32 @@ export default function Login() {
         const newUser = Object.fromEntries(
             new FormData(e.target as HTMLFormElement)
         )
-        localStorage.setItem('lsa', JSON.stringify(newUser))
-        setUser(newUser as User)
+        localStorage.setItem(
+            'lsa-user-info',
+            JSON.stringify({ ...newUser, isLoggedIn: 'true' })
+        )
+
+        setUser({ ...newUser, isLoggedIn: true } as User)
+        navigateTo('/')
     }
 
     return (
-        <div className={clsx('p-8', 'flex flex-col gap-16')}>
+        <div
+            className={clsx(
+                'tablet:max-desktop:h-full',
+                'p-8',
+                'flex flex-col tablet:max-desktop:justify-center tablet:max-desktop:items-center gap-16 tablet:max-desktop:gap-12'
+            )}
+        >
             <DevLinks logoSize='large' />
-            <div className='flex flex-col gap-10'>
+            <div
+                className={clsx(
+                    'tablet:max-desktop:bg-white',
+                    'tablet:max-desktop:p-10',
+                    'tablet:max-desktop:rounded-xl',
+                    'flex flex-col gap-10'
+                )}
+            >
                 <div className='flex flex-col gap-2'>
                     <Text
                         className='text-[24px]!'
@@ -38,7 +56,11 @@ export default function Login() {
                 </div>
                 <div className='flex flex-col gap-6'>
                     <LoginForm onSubmit={onLoginFormSubmitHandler} />
-                    <div className='flex flex-col text-center'>
+                    <div
+                        className={clsx(
+                            'flex flex-col tablet:max-desktop:flex-row tablet:max-desktop:justify-center text-center'
+                        )}
+                    >
                         <Text context='body' size='medium' color='lsa-grey'>
                             Don't have an account?
                         </Text>
