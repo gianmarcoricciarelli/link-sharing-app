@@ -24,11 +24,12 @@
 
         /* Paths */
         "paths": {
-            "@/*": ["./src/*"],
+            "@contexts/*": ["./src/contexts/*"],
+            "@customTypes/*": ["./src/types/*"],
             "@icons/*": ["./src/assets/images/*"],
             "@pages/*": ["./src/pages/*"],
-            "@types/*": ["./src/types/*"],
-            "@ui/*": ["./src/ui/*"]
+            "@ui/*": ["./src/ui/*"],
+            "@widgets/*": ["./src/widgets/*"]
         }
     },
     "include": ["src"]

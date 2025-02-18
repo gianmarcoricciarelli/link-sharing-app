@@ -1,4 +1,4 @@
-import { User } from '@/types'
+import { User } from '@customTypes/index'
 import {
     createContext,
     Dispatch,

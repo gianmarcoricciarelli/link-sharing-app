@@ -1,8 +1,8 @@
-import { UserContext } from '@/contexts/user'
-import { User } from '@/types'
-import DevLinks from '@/ui/devlinks/devlinks'
-import Text from '@/ui/text/text'
-import LoginForm from '@/widgets/loginForm/loginForm'
+import { UserContext } from '@contexts/user'
+import { User } from '@customTypes/index'
+import DevLinks from '@ui/devlinks/devlinks'
+import Text from '@ui/text/text'
+import LoginForm from '@widgets/loginForm/loginForm'
 import clsx from 'clsx'
 import { FormEventHandler, useContext } from 'react'
 import { useNavigate } from 'react-router'
@@ -28,8 +28,7 @@ export default function Login() {
     return (
         <div
             className={clsx(
-                'tablet:h-full',
-                'p-8',
+                'h-full p-8',
                 'flex flex-col tablet:justify-center tablet:items-center gap-16 tablet:gap-12'
             )}
         >

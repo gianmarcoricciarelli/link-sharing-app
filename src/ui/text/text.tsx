@@ -1,4 +1,4 @@
-import { Color } from '@/types'
+import { Color } from '@customTypes/index'
 import clsx from 'clsx'
 import { MouseEventHandler, ReactNode } from 'react'
 

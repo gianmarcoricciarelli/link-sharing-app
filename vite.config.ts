@@ -9,11 +9,12 @@ export default defineConfig({
     plugins: [react(), svgr(), tailwindcss()],
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './src'),
+            '@contexts': path.resolve(__dirname, './src/contexts'),
+            '@customTypes': path.resolve(__dirname, './src/types'),
             '@icons': path.resolve(__dirname, './src/assets/images'),
             '@pages': path.resolve(__dirname, './src/pages'),
-            '@types': path.resolve(__dirname, './src/types'),
             '@ui': path.resolve(__dirname, './src/ui'),
-        },
-    },
+            '@widgets': path.resolve(__dirname, './src/widgets')
+        }
+    }
 })

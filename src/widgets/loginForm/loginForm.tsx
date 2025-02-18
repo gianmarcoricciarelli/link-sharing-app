@@ -1,7 +1,7 @@
-import Button from '@/ui/button/button'
-import TextField from '@/ui/textField/textField'
 import EmailIcon from '@icons/icon-email.svg?react'
 import PasswordIcon from '@icons/icon-password.svg?react'
+import Button from '@ui/button/button'
+import TextField from '@ui/textField/textField'
 import { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import z from 'zod'
 
