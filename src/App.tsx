@@ -1,17 +1,17 @@
 import { useContext, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router'
-import { UserContext } from './contexts/user'
+import { StoreContext } from './contexts/storeContext/storeContext'
 
 function App() {
     const navigateTo = useNavigate()
 
-    const { user } = useContext(UserContext)
+    const { getLoggedUser } = useContext(StoreContext)
 
     useEffect(() => {
-        if (!user.isLoggedIn) {
+        if (!getLoggedUser()) {
             navigateTo('/login')
         }
-    }, [navigateTo, user.isLoggedIn])
+    }, [getLoggedUser, navigateTo])
 
     return <Outlet />
 }

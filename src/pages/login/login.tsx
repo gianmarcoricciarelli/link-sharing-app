@@ -1,4 +1,4 @@
-import { UserContext } from '@contexts/user'
+import { StoreContext } from '@contexts/storeContext/storeContext'
 import { User } from '@customTypes/index'
 import DevLinks from '@ui/devlinks/devlinks'
 import Text from '@ui/text/text'
@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router'
 export default function Login() {
     const navigateTo = useNavigate()
 
-    const { setUser } = useContext(UserContext)
+    const { setLoggedUser } = useContext(StoreContext)
 
     const onLoginFormSubmitHandler: FormEventHandler<HTMLFormElement> = (e) => {
         const newUser = Object.fromEntries(
@@ -21,7 +21,7 @@ export default function Login() {
             JSON.stringify({ ...newUser, isLoggedIn: 'true' })
         )
 
-        setUser({ ...newUser, isLoggedIn: true } as User)
+        setLoggedUser({ ...newUser, isLoggedIn: true } as User)
         navigateTo('/')
     }
 

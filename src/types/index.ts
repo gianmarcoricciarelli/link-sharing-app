@@ -10,3 +10,8 @@ export type User = {
     password: string
     isLoggedIn: boolean
 }
+
+export type LsaLocalStorageStore = {
+    users: User[]
+    loggedUser?: User
+}
