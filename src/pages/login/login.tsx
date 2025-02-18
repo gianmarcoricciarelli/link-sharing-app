@@ -28,17 +28,17 @@ export default function Login() {
     return (
         <div
             className={clsx(
-                'tablet:max-desktop:h-full',
+                'tablet:h-full',
                 'p-8',
-                'flex flex-col tablet:max-desktop:justify-center tablet:max-desktop:items-center gap-16 tablet:max-desktop:gap-12'
+                'flex flex-col tablet:justify-center tablet:items-center gap-16 tablet:gap-12'
             )}
         >
             <DevLinks logoSize='large' />
             <div
                 className={clsx(
-                    'tablet:max-desktop:bg-white',
-                    'tablet:max-desktop:p-10',
-                    'tablet:max-desktop:rounded-xl',
+                    'tablet:bg-white',
+                    'tablet:p-10',
+                    'tablet:rounded-xl',
                     'flex flex-col gap-10'
                 )}
             >
@@ -58,7 +58,7 @@ export default function Login() {
                     <LoginForm onSubmit={onLoginFormSubmitHandler} />
                     <div
                         className={clsx(
-                            'flex flex-col tablet:max-desktop:flex-row tablet:max-desktop:justify-center text-center'
+                            'flex flex-col tablet:flex-row tablet:justify-center text-center'
                         )}
                     >
                         <Text context='body' size='medium' color='lsa-grey'>
