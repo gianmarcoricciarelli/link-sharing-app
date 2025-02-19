@@ -3,5 +3,17 @@
     "semi": false,
     "singleQuote": true,
     "tabWidth": 4,
-    "trailingComma": "none"
+    "trailingComma": "none",
+    "plugins": ["@trivago/prettier-plugin-sort-imports"],
+    "importOrderSeparation": true,
+    "importOrder": [
+        "<THIRD_PARTY_MODULES>",
+        "^@icons/(.*)$",
+        "^@customTypes/(.*)$",
+        "^@ui/(.*)$",
+        "^@widgets/(.*)$",
+        "^@contexts/(.*)$",
+        "^@pages/(.*)$",
+        "^[./]"
+    ]
 }

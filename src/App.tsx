@@ -1,7 +1,8 @@
 import clsx from 'clsx'
 import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import { StoreContext } from './contexts/storeContext/storeContext'
+
+import { StoreContext } from '@contexts/storeContext/storeContext'
 
 function App() {
     const navigateTo = useNavigate()

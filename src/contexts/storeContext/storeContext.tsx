@@ -1,5 +1,6 @@
-import { LsaLocalStorageStore, User } from '@customTypes/index'
 import { createContext, ReactNode, useState } from 'react'
+
+import { LsaLocalStorageStore, User } from '@customTypes/index'
 
 interface StoreContextProps {
     store: LsaLocalStorageStore
