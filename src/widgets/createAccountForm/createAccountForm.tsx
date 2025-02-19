@@ -1,10 +1,12 @@
+import { ChangeEventHandler, FormEventHandler, useState } from 'react'
+import { z } from 'zod'
+
 import EmailIcon from '@icons/icon-email.svg?react'
 import PasswordIcon from '@icons/icon-password.svg?react'
+
 import Button from '@ui/button/button'
 import Text from '@ui/text/text'
 import TextField from '@ui/textField/textField'
-import { ChangeEventHandler, FormEventHandler, useState } from 'react'
-import { z } from 'zod'
 
 export default function CreateAccountForm({
     onSubmit

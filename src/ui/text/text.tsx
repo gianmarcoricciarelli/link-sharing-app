@@ -1,6 +1,7 @@
-import { Color } from '@customTypes/index'
 import clsx from 'clsx'
 import { MouseEventHandler, ReactNode } from 'react'
+
+import { Color } from '@customTypes/index'
 
 interface TextProps {
     className?: string

@@ -1,11 +1,15 @@
-import { StoreContext } from '@contexts/storeContext/storeContext'
-import { User } from '@customTypes/index'
-import DevLinks from '@ui/devlinks/devlinks'
-import Text from '@ui/text/text'
-import CreateAccountForm from '@widgets/createAccountForm/createAccountForm'
 import clsx from 'clsx'
 import { FormEventHandler, useContext } from 'react'
 import { useNavigate } from 'react-router'
+
+import { User } from '@customTypes/index'
+
+import DevLinks from '@ui/devlinks/devlinks'
+import Text from '@ui/text/text'
+
+import CreateAccountForm from '@widgets/createAccountForm/createAccountForm'
+
+import { StoreContext } from '@contexts/storeContext/storeContext'
 
 export default function CreateAccount() {
     const navigateTo = useNavigate()

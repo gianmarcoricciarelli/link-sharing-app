@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { ComponentProps } from 'react'
+
 import Text from '../text/text'
 
 interface ButtonProps {

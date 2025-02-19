@@ -1,6 +1,7 @@
-import Text from '@ui/text/text'
 import clsx from 'clsx'
 import { cloneElement, ReactElement } from 'react'
+
+import Text from '@ui/text/text'
 
 interface TabProps {
     icon: ReactElement<{ className?: string }>
