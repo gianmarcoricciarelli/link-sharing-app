@@ -2,6 +2,8 @@ import clsx from 'clsx'
 import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 
+import NavBar from '@widgets/navbar/navbar'
+
 import { StoreContext } from '@contexts/storeContext/storeContext'
 
 function App() {
@@ -17,7 +19,7 @@ function App() {
 
     return (
         <div className={clsx('flex flex-col gap-2')}>
-            <div>navbar</div>
+            <NavBar />
             <div>other</div>
         </div>
     )

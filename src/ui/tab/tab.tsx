@@ -5,7 +5,7 @@ import Text from '@ui/text/text'
 
 interface TabProps {
     icon: ReactElement<{ className?: string }>
-    text: string
+    text?: string
 }
 
 export default function Tab({ icon, text }: TabProps) {
@@ -22,14 +22,16 @@ export default function Tab({ icon, text }: TabProps) {
                 className:
                     'transition-all duration-300 text-lsa-grey group-hover:text-lsa-purple'
             })}
-            <Text
-                className='transition-all duration-300 group-hover:text-lsa-purple'
-                context='heading'
-                size='small'
-                color='lsa-grey'
-            >
-                {text}
-            </Text>
+            {text && (
+                <Text
+                    className='transition-all duration-300 group-hover:text-lsa-purple'
+                    context='heading'
+                    size='small'
+                    color='lsa-grey'
+                >
+                    {text}
+                </Text>
+            )}
         </div>
     )
 }
