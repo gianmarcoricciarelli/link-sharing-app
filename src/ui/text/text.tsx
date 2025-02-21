@@ -7,7 +7,7 @@ interface TextProps {
     className?: string
     context?: 'heading' | 'body'
     size?: 'medium' | 'small'
-    style?: 'bold'
+    style?: 'medium' | 'bold'
     color?: Color
     onClick?: MouseEventHandler<HTMLSpanElement>
     children: ReactNode
@@ -35,7 +35,8 @@ export default function Text({
                     (context === 'heading' && size === 'small') ||
                     (context === 'body' && size === 'medium'),
                 'text-xs': context === 'body' && size === 'small',
-                'font-bold': style === 'bold'
+                'font-bold': style === 'bold',
+                'font-medium': style == 'medium'
             })}
             onClick={onClick}
         >

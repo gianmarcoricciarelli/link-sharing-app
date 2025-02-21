@@ -22,7 +22,7 @@ function Primary({ type, disabled, onClick, children }: ButtonProps) {
             disabled={disabled}
             onClick={onClick}
         >
-            <Text context='heading' size='small' color='white'>
+            <Text context='heading' size='small' style='medium' color='white'>
                 {children}
             </Text>
         </button>
@@ -53,6 +53,7 @@ function Secondary({
                     className={clsx({ 'text-lsa-purple/25!': disabled })}
                     context='heading'
                     size='small'
+                    style='medium'
                     color='lsa-purple'
                 >
                     {children}

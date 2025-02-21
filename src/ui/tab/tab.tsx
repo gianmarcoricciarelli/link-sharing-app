@@ -6,9 +6,10 @@ import Text from '@ui/text/text'
 interface TabProps {
     icon: ReactElement<{ className?: string }>
     text?: string
+    textPosition?: 'left' | 'right'
 }
 
-export default function Tab({ icon, text }: TabProps) {
+export default function Tab({ icon, text, textPosition = 'left' }: TabProps) {
     return (
         <div
             className={clsx(
@@ -18,15 +19,27 @@ export default function Tab({ icon, text }: TabProps) {
                 'hover:cursor-pointer hover:bg-lsa-light-purple'
             )}
         >
-            {cloneElement(icon, {
-                className:
-                    'transition-all duration-300 text-lsa-grey group-hover:text-lsa-purple'
-            })}
-            {text && (
+            {textPosition === 'left' && text && (
                 <Text
                     className='transition-all duration-300 group-hover:text-lsa-purple'
                     context='heading'
                     size='small'
+                    style='medium'
+                    color='lsa-grey'
+                >
+                    {text}
+                </Text>
+            )}
+            {cloneElement(icon, {
+                className:
+                    'transition-all duration-300 text-lsa-grey group-hover:text-lsa-purple'
+            })}
+            {textPosition === 'right' && text && (
+                <Text
+                    className='transition-all duration-300 group-hover:text-lsa-purple'
+                    context='heading'
+                    size='small'
+                    style='medium'
                     color='lsa-grey'
                 >
                     {text}

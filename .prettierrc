@@ -11,6 +11,7 @@
         "^@icons/(.*)$",
         "^@customTypes/(.*)$",
         "^@ui/(.*)$",
+        "^@hooks/(.*)$",
         "^@widgets/(.*)$",
         "^@contexts/(.*)$",
         "^@pages/(.*)$",
