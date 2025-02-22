@@ -12,11 +12,12 @@ import Tab from '@ui/tab/tab'
 
 import useResizeObserver from '@hooks/useResizeObserver'
 
-export default function NavBar({
-    onTabClick
-}: {
+interface NavBarProps {
+    activeTab: AppSection
     onTabClick: (tabId: AppSection) => void
-}) {
+}
+
+export default function NavBar({ activeTab, onTabClick }: NavBarProps) {
     const { isMobile } = useResizeObserver()
 
     return (
@@ -29,14 +30,16 @@ export default function NavBar({
                     <Tab
                         id='links'
                         onClick={onTabClick}
-                        icon={<LinkIcon />}
+                        Icon={LinkIcon}
+                        isActive={activeTab === 'links'}
                         text={!isMobile ? 'Links' : undefined}
                         textPosition='right'
                     />
                     <Tab
                         id='details'
                         onClick={onTabClick}
-                        icon={<ProfileDetailsIcon />}
+                        Icon={ProfileDetailsIcon}
+                        isActive={activeTab === 'details'}
                         text={!isMobile ? 'Profile Details' : undefined}
                         textPosition='right'
                     />

@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { Outlet } from 'react-router'
+import { useLocation } from 'react-router'
 
 import Button from '@ui/button/button'
 
@@ -13,6 +14,7 @@ import { AppSection } from './types'
 
 function App() {
     const navigateTo = useNavigate()
+    const location = useLocation()
 
     const { getLoggedUser } = useContext(StoreContext)
 
@@ -32,7 +34,12 @@ function App() {
 
     return (
         <div className={clsx('h-full', 'flex flex-col gap-2')}>
-            <NavBar onTabClick={onTabClickHandler} />
+            <NavBar
+                activeTab={
+                    location.pathname.includes('details') ? 'details' : 'links'
+                }
+                onTabClick={onTabClickHandler}
+            />
             <div className='p-4 grow'>
                 <div
                     className={clsx(
