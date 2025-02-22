@@ -11,12 +11,21 @@ interface ButtonProps {
     children: ComponentProps<'button'>['children']
 }
 
-function Primary({ type, disabled, onClick, children }: ButtonProps) {
+function Primary({
+    className,
+    type,
+    disabled,
+    onClick,
+    children
+}: ButtonProps) {
     return (
         <button
             className={clsx(
-                'px-7 py-3 rounded-lg cursor-pointer',
-                'bg-lsa-purple not-disabled:active:bg-lsa-purple-hover not-disabled:active:shadow-lsa-purple-blur disabled:bg-lsa-purple/25'
+                className,
+                'px-7 py-3',
+                'bg-lsa-purple not-disabled:active:bg-lsa-purple-hover disabled:bg-lsa-purple/25',
+                'not-disabled:active:shadow-lsa-purple-blur',
+                'rounded-lg cursor-pointer'
             )}
             type={type}
             disabled={disabled}

@@ -14,3 +14,5 @@ export type LsaLocalStorageStore = {
     users: User[]
     loggedUser?: User
 }
+
+export type AppSection = 'links' | 'details' | 'preview'
