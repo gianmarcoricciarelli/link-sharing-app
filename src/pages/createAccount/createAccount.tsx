@@ -19,9 +19,12 @@ export default function CreateAccount() {
     const onCreateAccountFormSubmitHandler: FormEventHandler<
         HTMLFormElement
     > = (e) => {
-        const newUser = Object.fromEntries(
-            new FormData(e.target as HTMLFormElement)
-        ) as User
+        const newUser: User = {
+            ...(Object.fromEntries(
+                new FormData(e.target as HTMLFormElement)
+            ) as Omit<User, 'links'>),
+            links: []
+        }
 
         setLoggedUser({ ...newUser })
         navigateTo('/')

@@ -25,7 +25,8 @@ function Primary({
                 'px-7 py-3',
                 'bg-lsa-purple not-disabled:active:bg-lsa-purple-hover disabled:bg-lsa-purple/25',
                 'not-disabled:active:shadow-lsa-purple-blur',
-                'rounded-lg cursor-pointer'
+                'rounded-lg cursor-pointer',
+                'transition-all duration-300'
             )}
             type={type}
             disabled={disabled}

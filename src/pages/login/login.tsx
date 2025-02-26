@@ -17,9 +17,14 @@ export default function Login() {
     const { setLoggedUser, getUsers } = useContext(StoreContext)
 
     const onLoginFormSubmitHandler: FormEventHandler<HTMLFormElement> = (e) => {
-        const loggedUser = Object.fromEntries(
+        const { email, password } = Object.fromEntries(
             new FormData(e.target as HTMLFormElement)
-        ) as User
+        ) as Omit<User, 'links'>
+        const loggedUser: User = {
+            email,
+            password,
+            links: getUsers().find((u) => u.email === email)!.links
+        }
         const users = getUsers()
 
         if (!users.find((u) => u.email === loggedUser.email)) {

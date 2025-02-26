@@ -1,13 +1,12 @@
 import clsx from 'clsx'
 import { useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router'
-import { Outlet } from 'react-router'
-import { useLocation } from 'react-router'
+import { Outlet, useLocation, useNavigate } from 'react-router'
 
 import Button from '@ui/button/button'
 
 import NavBar from '@widgets/navbar/navbar'
 
+import { LinkCustomizationContextProvider } from '@contexts/linkCustomizationContext/linkCustomizationContext'
 import { StoreContext } from '@contexts/storeContext/storeContext'
 
 import { AppSection } from './types'
@@ -16,7 +15,10 @@ function App() {
     const navigateTo = useNavigate()
     const location = useLocation()
 
-    const { getLoggedUser } = useContext(StoreContext)
+    const {
+        store: { loggedUser },
+        getLoggedUserLinks
+    } = useContext(StoreContext)
 
     const onTabClickHandler = (tabId: AppSection) => {
         if (tabId === 'links') {
@@ -27,10 +29,10 @@ function App() {
     }
 
     useEffect(() => {
-        if (!getLoggedUser()) {
+        if (!loggedUser?.email) {
             navigateTo('/login')
         }
-    }, [getLoggedUser, navigateTo])
+    }, [loggedUser?.email, navigateTo])
 
     return (
         <div className={clsx('h-full', 'flex flex-col gap-2')}>
@@ -49,11 +51,18 @@ function App() {
                     )}
                 >
                     <div className='pt-6 px-6 grow'>
-                        <Outlet />
+                        <LinkCustomizationContextProvider>
+                            <Outlet />
+                        </LinkCustomizationContextProvider>
                     </div>
                     <div className='h-[1px] bg-lsa-borders' />
                     <div className='px-6 pb-6'>
-                        <Button.Primary className='w-full'>Save</Button.Primary>
+                        <Button.Primary
+                            className='w-full'
+                            disabled={getLoggedUserLinks().length === 0}
+                        >
+                            Save
+                        </Button.Primary>
                     </div>
                 </div>
             </div>
