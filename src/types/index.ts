@@ -1,3 +1,12 @@
+import { FunctionComponent, SVGProps } from 'react'
+
+export type SvgrIcon = FunctionComponent<SVGProps<SVGSVGElement>> & {
+    title?: string
+    titleId?: string
+    desc?: string
+    descId?: string
+}
+
 export type Color =
     | 'lsa-dark-gray'
     | 'lsa-grey'
