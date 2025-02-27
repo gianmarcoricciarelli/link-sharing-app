@@ -6,10 +6,12 @@ import PhoneMockupIllustration from '@icons/illustration-empty.svg?react'
 import Button from '@ui/button/button'
 import Text from '@ui/text/text'
 
+import CustomLink from '@widgets/customLink/customLink'
+
 import { LinkCustomizationContext } from '@contexts/linkCustomizationContext/linkCustomizationContext'
 
 export default function Links() {
-    const { links, setLinks } = useContext(LinkCustomizationContext)
+    const { links, addLink, platforms } = useContext(LinkCustomizationContext)
 
     return (
         <div className='flex flex-col gap-10'>
@@ -23,16 +25,20 @@ export default function Links() {
                 </Text>
             </div>
             <div className='flex flex-col gap-6'>
-                <Button.Secondary onClick={() => setLinks()}>
+                <Button.Secondary
+                    onClick={() =>
+                        addLink({ link: '', platform: platforms[0] })
+                    }
+                >
                     + Add new link
                 </Button.Secondary>
-                <div
-                    className={clsx(
-                        'py-11 px-5 bg-lsa-light-grey rounded-xl',
-                        'flex flex-col gap-3'
-                    )}
-                >
-                    {links.length === 0 ? (
+                {links.length === 0 && (
+                    <div
+                        className={clsx(
+                            'py-11 px-5 bg-lsa-light-grey rounded-xl',
+                            'flex flex-col gap-3'
+                        )}
+                    >
                         <div className='text-center flex flex-col items-center gap-6'>
                             <PhoneMockupIllustration className='w-31 h-20' />
                             <Text className='text-2xl!' style='bold'>
@@ -45,10 +51,12 @@ export default function Links() {
                                 share your profiles with everyone!
                             </Text>
                         </div>
-                    ) : (
-                        links.toString()
-                    )}
-                </div>
+                    </div>
+                )}
+                {links.length > 0 &&
+                    links.map((l, index) => (
+                        <CustomLink key={l.platform} link={l} index={index} />
+                    ))}
             </div>
         </div>
     )

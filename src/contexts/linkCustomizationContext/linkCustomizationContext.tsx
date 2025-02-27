@@ -1,19 +1,55 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, ReactNode, useContext, useState } from 'react'
 
-import { Link, Platform } from '@customTypes/index'
+import CodePenIcon from '@icons/icon-codepen.svg?react'
+import CodeWarsIcon from '@icons/icon-codewars.svg?react'
+import DevToIcon from '@icons/icon-devto.svg?react'
+import FacebookIcon from '@icons/icon-facebook.svg?react'
+import FreeCodeCampIcon from '@icons/icon-freecodecamp.svg?react'
+import FrontendMentorIcon from '@icons/icon-frontend-mentor.svg?react'
+import GitHubIcon from '@icons/icon-github.svg?react'
+import GitLabIcon from '@icons/icon-gitlab.svg?react'
+import HashnodeIcon from '@icons/icon-hashnode.svg?react'
+import LinkedInIcon from '@icons/icon-linkedin.svg?react'
+import StackOverflowIcon from '@icons/icon-stack-overflow.svg?react'
+import TwitchIcon from '@icons/icon-twitch.svg?react'
+import TwitterIcon from '@icons/icon-twitter.svg?react'
+import YouTubeIcon from '@icons/icon-youtube.svg?react'
+
+import { Link, Platform, SvgrIcon, User } from '@customTypes/index'
 
 import { StoreContext } from '@contexts/storeContext/storeContext'
 
 interface LinkCustomizationContextProps {
     links: Link[]
-    setLinks: () => void
+    addLink: (link: Link) => void
+    updateLink: (index: number, link: Link) => void
+    platforms: Platform[]
+    iconForPlatForm: Record<Platform, SvgrIcon>
 }
 
 export const LinkCustomizationContext =
     createContext<LinkCustomizationContextProps>({
         links: [],
-        setLinks: () => {}
+        addLink: () => {},
+        updateLink: () => {},
+        platforms: [],
+        iconForPlatForm: {
+            GitHub: GitHubIcon,
+            'Frontend Mentor': FrontendMentorIcon,
+            Twitter: TwitterIcon,
+            LinkedIn: LinkedInIcon,
+            YouTube: YouTubeIcon,
+            Facebook: FacebookIcon,
+            Twitch: TwitchIcon,
+            'Dev.to': DevToIcon,
+            Codewars: CodeWarsIcon,
+            Codepen: CodePenIcon,
+            freeCodeCamp: FreeCodeCampIcon,
+            GitLab: GitLabIcon,
+            Hashnode: HashnodeIcon,
+            'Stack Overflow': StackOverflowIcon
+        }
     })
 
 export function LinkCustomizationContextProvider({
@@ -21,7 +57,7 @@ export function LinkCustomizationContextProvider({
 }: {
     children: ReactNode
 }) {
-    const { getLoggedUserLinks, setLoggedUserLinks } = useContext(StoreContext)
+    const { setStore, getLoggedUserLinks } = useContext(StoreContext)
 
     const [platforms, setPlatforms] = useState<Platform[]>([
         'GitHub',
@@ -40,16 +76,94 @@ export function LinkCustomizationContextProvider({
         'Stack Overflow'
     ])
 
-    const setLinks = () => {
-        setLoggedUserLinks({ link: '', platform: platforms[0] })
-        setPlatforms((prevPlatforms) => prevPlatforms.slice(1))
+    const addLink = (newLink: Link) => {
+        setStore((prevStore) => {
+            const newLinks = [...(prevStore.loggedUser?.links || []), newLink]
+            const newLoggedUser: User = {
+                ...prevStore.loggedUser!,
+                links: newLinks
+            }
+            const newUsers = [
+                ...prevStore.users.filter(
+                    (u) => u.email !== newLoggedUser.email
+                ),
+                newLoggedUser
+            ]
+
+            localStorage.setItem(
+                'lsa',
+                JSON.stringify({
+                    users: newUsers,
+                    loggedUser: newLoggedUser
+                })
+            )
+
+            return { users: newUsers, loggedUser: newLoggedUser }
+        })
+        setPlatforms((prevPlatforms) =>
+            prevPlatforms.filter((p) => p !== newLink.platform)
+        )
+    }
+
+    const updateLink = (index: number, link: Link) => {
+        setStore((prevStore) => {
+            const newLinks = [...prevStore.loggedUser!.links]
+
+            newLinks[index] = link
+
+            const newLoggedUser: User = {
+                ...prevStore.loggedUser!,
+                links: newLinks
+            }
+            const newUsers = [
+                ...prevStore.users.filter(
+                    (u) => u.email !== newLoggedUser.email
+                ),
+                newLoggedUser
+            ]
+
+            localStorage.setItem(
+                'lsa',
+                JSON.stringify({
+                    users: newUsers,
+                    loggedUser: newLoggedUser
+                })
+            )
+
+            setPlatforms((prevPlatforms) => [
+                prevStore.loggedUser!.links[index].platform,
+                ...prevPlatforms.filter((p) => p !== link.platform)
+            ])
+
+            return { users: newUsers, loggedUser: newLoggedUser }
+        })
+    }
+
+    const iconForPlatForm: Record<Platform, SvgrIcon> = {
+        GitHub: GitHubIcon,
+        'Frontend Mentor': FrontendMentorIcon,
+        Twitter: TwitterIcon,
+        LinkedIn: LinkedInIcon,
+        YouTube: YouTubeIcon,
+        Facebook: FacebookIcon,
+        Twitch: TwitchIcon,
+        'Dev.to': DevToIcon,
+        Codewars: CodeWarsIcon,
+        Codepen: CodePenIcon,
+        freeCodeCamp: FreeCodeCampIcon,
+        GitLab: GitLabIcon,
+        Hashnode: HashnodeIcon,
+        'Stack Overflow': StackOverflowIcon
     }
 
     return (
         <LinkCustomizationContext.Provider
             value={{
                 links: getLoggedUserLinks(),
-                setLinks
+                addLink,
+                updateLink,
+                platforms,
+                iconForPlatForm
             }}
         >
             {children}

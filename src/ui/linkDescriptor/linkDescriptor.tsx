@@ -1,13 +1,13 @@
 import clsx from 'clsx'
 
-import { SvgrIcon } from '@customTypes/index'
+import { Platform, SvgrIcon } from '@customTypes/index'
 
 import Text from '@ui/text/text'
 
 interface LinkDescriptorProps {
     Icon: SvgrIcon
-    descriptor: string
-    onClick?: (clickedDescriptor: string) => void
+    descriptor: Platform
+    onClick?: (clickedDescriptor: Platform) => void
 }
 
 export default function LinkDescriptor({

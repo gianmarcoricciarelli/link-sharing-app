@@ -1,39 +1,24 @@
 import clsx from 'clsx'
-import {
-    Children,
-    cloneElement,
-    forwardRef,
-    Fragment,
-    ReactElement,
-    ReactNode
-} from 'react'
+import { Children, forwardRef, Fragment, ReactNode } from 'react'
 
-interface DropDownMenuProps {
-    onOptionClick: (clickedOption: string) => void
-    children: ReactNode
-}
+const DropDownMenu = forwardRef<HTMLDivElement, { children: ReactNode }>(
+    function DropDownMenu({ children }: { children: ReactNode }, ref) {
+        const childrenMap = Children.toArray(children)
 
-const DropDownMenu = forwardRef<HTMLDivElement, DropDownMenuProps>(
-    function DropDownMenu({ onOptionClick, children }: DropDownMenuProps, ref) {
         return (
             <div
                 ref={ref}
                 className={clsx(
-                    'px-4 py-3',
-                    'bg-white',
+                    'w-full px-4 py-3',
+                    'bg-white rounded-lg overflow-auto',
                     'flex flex-col gap-3',
-                    'absolute',
-                    'left-0 bottom-0 -translate-y-[calc(100%_+_8px)]'
+                    'absolute z-10',
+                    'left-0 bottom-0 translate-y-full-with-offset'
                 )}
             >
-                {Children.map(children, (Child, index) => (
+                {childrenMap.map((child, index) => (
                     <Fragment key={index}>
-                        {cloneElement(
-                            Child as ReactElement<{
-                                onClick: typeof onOptionClick
-                            }>,
-                            { onClick: onOptionClick }
-                        )}
+                        {child}
                         <div className='h-[1px] bg-lsa-borders' />
                     </Fragment>
                 ))}
