@@ -47,7 +47,7 @@ export default function Links() {
     return (
         <div className='flex flex-col gap-10'>
             <div className='flex flex-col gap-2'>
-                <Text className='text-2xl!' style='bold'>
+                <Text className='text-2xl!' fontStyle='bold'>
                     Customize your links
                 </Text>
                 <Text context='body' size='medium' color='lsa-grey'>
@@ -77,7 +77,7 @@ export default function Links() {
                         >
                             <div className='text-center flex flex-col items-center gap-6'>
                                 <PhoneMockupIllustration className='w-31 h-20' />
-                                <Text className='text-2xl!' style='bold'>
+                                <Text className='text-2xl!' fontStyle='bold'>
                                     Let's get you started
                                 </Text>
                                 <Text

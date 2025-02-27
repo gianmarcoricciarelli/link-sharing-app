@@ -57,7 +57,7 @@ export default function Login() {
                     <Text
                         className='text-[24px]!'
                         color='lsa-dark-gray'
-                        style='bold'
+                        fontStyle='bold'
                     >
                         Login
                     </Text>

@@ -142,6 +142,7 @@ export function LinkCustomizationContextProvider({
             )
             return updateStore(prevStore, newLinks)
         })
+        setPlatforms((prevPlatforms) => [link.platform, ...prevPlatforms])
     }
 
     const swapLinks = (activeIndex: number, overIndex: number) => {

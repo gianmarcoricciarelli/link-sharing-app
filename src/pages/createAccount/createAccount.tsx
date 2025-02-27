@@ -50,7 +50,7 @@ export default function CreateAccount() {
                     <Text
                         className='text-[24px]!'
                         color='lsa-dark-gray'
-                        style='bold'
+                        fontStyle='bold'
                     >
                         Create account
                     </Text>
