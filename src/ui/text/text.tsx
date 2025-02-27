@@ -1,29 +1,41 @@
 import clsx from 'clsx'
-import { MouseEventHandler, ReactNode } from 'react'
+import {
+    CSSProperties,
+    MouseEventHandler,
+    ReactNode,
+    TouchEventHandler
+} from 'react'
 
 import { Color } from '@customTypes/index'
 
 interface TextProps {
+    style?: CSSProperties
     className?: string
+    draggable?: boolean
     context?: 'heading' | 'body'
     size?: 'medium' | 'small'
-    style?: 'medium' | 'bold'
+    fontStyle?: 'medium' | 'bold'
     color?: Color
     onClick?: MouseEventHandler<HTMLSpanElement>
+    onTouchStart?: TouchEventHandler<HTMLSpanElement>
     children: ReactNode
 }
 
 export default function Text({
+    style,
     className,
+    draggable,
     context = 'heading',
     size = 'medium',
-    style,
+    fontStyle,
     color = 'lsa-dark-gray',
     onClick,
+    onTouchStart,
     children
 }: TextProps) {
     return (
         <span
+            style={style}
             className={clsx(className, {
                 'text-lsa-dark-gray': color === 'lsa-dark-gray',
                 'text-lsa-grey': color === 'lsa-grey',
@@ -35,9 +47,11 @@ export default function Text({
                     (context === 'heading' && size === 'small') ||
                     (context === 'body' && size === 'medium'),
                 'text-xs': context === 'body' && size === 'small',
-                'font-bold': style === 'bold',
-                'font-medium': style == 'medium'
+                'font-bold': fontStyle === 'bold',
+                'font-medium': fontStyle == 'medium'
             })}
+            draggable={draggable}
+            onTouchStart={onTouchStart}
             onClick={onClick}
         >
             {children}

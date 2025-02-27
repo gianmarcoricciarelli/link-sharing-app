@@ -48,7 +48,7 @@ export default function Tab({
                     )}
                     context='heading'
                     size='small'
-                    style='medium'
+                    fontStyle='medium'
                     color='lsa-grey'
                 >
                     {text}
@@ -72,7 +72,7 @@ export default function Tab({
                     )}
                     context='heading'
                     size='small'
-                    style='medium'
+                    fontStyle='medium'
                     color='lsa-grey'
                 >
                     {text}

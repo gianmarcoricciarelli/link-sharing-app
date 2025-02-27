@@ -22,7 +22,7 @@ export default function CustomLink({ link, index }: CustomLinkProps) {
     const { attributes, listeners, setNodeRef, transform, transition } =
         useSortable({ id: index })
 
-    const { platforms, iconForPlatForm, updateLink } = useContext(
+    const { platforms, iconForPlatForm, updateLink, removeLink } = useContext(
         LinkCustomizationContext
     )
 
@@ -49,13 +49,29 @@ export default function CustomLink({ link, index }: CustomLinkProps) {
                     <Text
                         context='body'
                         size='medium'
-                        style='bold'
+                        fontStyle='bold'
                         color='lsa-grey'
                     >
                         {`Link #${index + 1}`}
                     </Text>
                 </div>
-                <Text context='body' size='medium' color='lsa-grey'>
+                <Text
+                    className='select-none'
+                    draggable={false}
+                    context='body'
+                    size='medium'
+                    color='lsa-grey'
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        e.nativeEvent.stopImmediatePropagation()
+                        removeLink(link)
+                    }}
+                    onTouchStart={(e) => {
+                        e.stopPropagation()
+                        e.nativeEvent.stopImmediatePropagation()
+                        removeLink(link)
+                    }}
+                >
                     Remove
                 </Text>
             </div>
@@ -73,6 +89,9 @@ export default function CustomLink({ link, index }: CustomLinkProps) {
                         Icon={iconForPlatForm[p]}
                         descriptor={p}
                         onClick={() =>
+                            updateLink(index, { link: '', platform: p })
+                        }
+                        onTouchStart={() =>
                             updateLink(index, { link: '', platform: p })
                         }
                     />

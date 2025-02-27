@@ -46,9 +46,8 @@ export default function DropDownField({
             <div
                 ref={dropDownButtonRef}
                 className='flex justify-between items-center gap-3'
-                onClick={() => {
-                    setIsOpen((prevIsOpen) => !prevIsOpen)
-                }}
+                onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
+                onTouchStart={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
             >
                 {button}
                 <ChevronDownIcon
