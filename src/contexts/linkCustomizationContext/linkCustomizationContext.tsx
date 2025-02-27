@@ -16,7 +16,13 @@ import TwitchIcon from '@icons/icon-twitch.svg?react'
 import TwitterIcon from '@icons/icon-twitter.svg?react'
 import YouTubeIcon from '@icons/icon-youtube.svg?react'
 
-import { Link, Platform, SvgrIcon, User } from '@customTypes/index'
+import {
+    Link,
+    LsaLocalStorageStore,
+    Platform,
+    SvgrIcon,
+    User
+} from '@customTypes/index'
 
 import { StoreContext } from '@contexts/storeContext/storeContext'
 
@@ -24,6 +30,7 @@ interface LinkCustomizationContextProps {
     links: Link[]
     addLink: (link: Link) => void
     updateLink: (index: number, link: Link) => void
+    removeLink: (link: Link) => void
     swapLinks: (activeIndex: number, overIndex: number) => void
     platforms: Platform[]
     iconForPlatForm: Record<Platform, SvgrIcon>
@@ -34,6 +41,7 @@ export const LinkCustomizationContext =
         links: [],
         addLink: () => {},
         updateLink: () => {},
+        removeLink: () => {},
         swapLinks: () => {},
         platforms: [],
         iconForPlatForm: {
@@ -78,29 +86,35 @@ export function LinkCustomizationContextProvider({
         'Stack Overflow'
     ])
 
+    const updateStore = (
+        prevStore: LsaLocalStorageStore,
+        newLinks: Link[]
+    ): LsaLocalStorageStore => {
+        const newLoggedUser: User = {
+            ...prevStore.loggedUser!,
+            links: newLinks
+        }
+        const newUsers = [
+            ...prevStore.users.filter((u) => u.email !== newLoggedUser.email),
+            newLoggedUser
+        ]
+
+        localStorage.setItem(
+            'lsa',
+            JSON.stringify({
+                users: newUsers,
+                loggedUser: newLoggedUser
+            })
+        )
+
+        return { users: newUsers, loggedUser: newLoggedUser }
+    }
+
     const addLink = (newLink: Link) => {
         setStore((prevStore) => {
             const newLinks = [...(prevStore.loggedUser?.links || []), newLink]
-            const newLoggedUser: User = {
-                ...prevStore.loggedUser!,
-                links: newLinks
-            }
-            const newUsers = [
-                ...prevStore.users.filter(
-                    (u) => u.email !== newLoggedUser.email
-                ),
-                newLoggedUser
-            ]
 
-            localStorage.setItem(
-                'lsa',
-                JSON.stringify({
-                    users: newUsers,
-                    loggedUser: newLoggedUser
-                })
-            )
-
-            return { users: newUsers, loggedUser: newLoggedUser }
+            return updateStore(prevStore, newLinks)
         })
         setPlatforms((prevPlatforms) =>
             prevPlatforms.filter((p) => p !== newLink.platform)
@@ -110,34 +124,23 @@ export function LinkCustomizationContextProvider({
     const updateLink = (index: number, link: Link) => {
         setStore((prevStore) => {
             const newLinks = [...prevStore.loggedUser!.links]
-
             newLinks[index] = link
-
-            const newLoggedUser: User = {
-                ...prevStore.loggedUser!,
-                links: newLinks
-            }
-            const newUsers = [
-                ...prevStore.users.filter(
-                    (u) => u.email !== newLoggedUser.email
-                ),
-                newLoggedUser
-            ]
-
-            localStorage.setItem(
-                'lsa',
-                JSON.stringify({
-                    users: newUsers,
-                    loggedUser: newLoggedUser
-                })
-            )
 
             setPlatforms((prevPlatforms) => [
                 prevStore.loggedUser!.links[index].platform,
                 ...prevPlatforms.filter((p) => p !== link.platform)
             ])
 
-            return { users: newUsers, loggedUser: newLoggedUser }
+            return updateStore(prevStore, newLinks)
+        })
+    }
+
+    const removeLink = (link: Link) => {
+        setStore((prevStore) => {
+            const newLinks = [...prevStore.loggedUser!.links].filter(
+                (l) => l.platform !== link.platform
+            )
+            return updateStore(prevStore, newLinks)
         })
     }
 
@@ -149,26 +152,7 @@ export function LinkCustomizationContextProvider({
             newLinks[overIndex] = newLinks[activeIndex]
             newLinks[activeIndex] = tmp
 
-            const newLoggedUser: User = {
-                ...prevStore.loggedUser!,
-                links: newLinks
-            }
-            const newUsers = [
-                ...prevStore.users.filter(
-                    (u) => u.email !== newLoggedUser.email
-                ),
-                newLoggedUser
-            ]
-
-            localStorage.setItem(
-                'lsa',
-                JSON.stringify({
-                    users: newUsers,
-                    loggedUser: newLoggedUser
-                })
-            )
-
-            return { users: newUsers, loggedUser: newLoggedUser }
+            return updateStore(prevStore, newLinks)
         })
     }
 
@@ -195,6 +179,7 @@ export function LinkCustomizationContextProvider({
                 links: getLoggedUserLinks(),
                 addLink,
                 updateLink,
+                removeLink,
                 swapLinks,
                 platforms,
                 iconForPlatForm
