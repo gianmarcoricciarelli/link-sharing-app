@@ -1,3 +1,5 @@
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 import clsx from 'clsx'
 import { useContext } from 'react'
 
@@ -17,17 +19,29 @@ interface CustomLinkProps {
 }
 
 export default function CustomLink({ link, index }: CustomLinkProps) {
+    const { attributes, listeners, setNodeRef, transform, transition } =
+        useSortable({ id: index })
+
     const { platforms, iconForPlatForm, updateLink } = useContext(
         LinkCustomizationContext
     )
 
     return (
         <div
+            ref={setNodeRef}
+            style={{
+                transform: CSS.Transform.toString(transform),
+                transition,
+                touchAction: 'none'
+            }}
             className={clsx(
                 'p-5',
                 'bg-lsa-light-grey rounded-xl',
-                'flex flex-col gap-3'
+                'flex flex-col gap-3',
+                'cursor-grab'
             )}
+            {...attributes}
+            {...listeners}
         >
             <div className='flex items-baseline justify-between'>
                 <div className='flex items-center gap-2'>

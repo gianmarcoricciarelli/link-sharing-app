@@ -24,6 +24,7 @@ interface LinkCustomizationContextProps {
     links: Link[]
     addLink: (link: Link) => void
     updateLink: (index: number, link: Link) => void
+    swapLinks: (activeIndex: number, overIndex: number) => void
     platforms: Platform[]
     iconForPlatForm: Record<Platform, SvgrIcon>
 }
@@ -33,6 +34,7 @@ export const LinkCustomizationContext =
         links: [],
         addLink: () => {},
         updateLink: () => {},
+        swapLinks: () => {},
         platforms: [],
         iconForPlatForm: {
             GitHub: GitHubIcon,
@@ -139,6 +141,37 @@ export function LinkCustomizationContextProvider({
         })
     }
 
+    const swapLinks = (activeIndex: number, overIndex: number) => {
+        setStore((prevStore) => {
+            const newLinks = [...prevStore.loggedUser!.links]
+
+            const tmp = newLinks[overIndex]
+            newLinks[overIndex] = newLinks[activeIndex]
+            newLinks[activeIndex] = tmp
+
+            const newLoggedUser: User = {
+                ...prevStore.loggedUser!,
+                links: newLinks
+            }
+            const newUsers = [
+                ...prevStore.users.filter(
+                    (u) => u.email !== newLoggedUser.email
+                ),
+                newLoggedUser
+            ]
+
+            localStorage.setItem(
+                'lsa',
+                JSON.stringify({
+                    users: newUsers,
+                    loggedUser: newLoggedUser
+                })
+            )
+
+            return { users: newUsers, loggedUser: newLoggedUser }
+        })
+    }
+
     const iconForPlatForm: Record<Platform, SvgrIcon> = {
         GitHub: GitHubIcon,
         'Frontend Mentor': FrontendMentorIcon,
@@ -162,6 +195,7 @@ export function LinkCustomizationContextProvider({
                 links: getLoggedUserLinks(),
                 addLink,
                 updateLink,
+                swapLinks,
                 platforms,
                 iconForPlatForm
             }}
