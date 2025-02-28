@@ -37,8 +37,7 @@ export default function CustomLink({ link, index }: CustomLinkProps) {
             ref={setNodeRef}
             style={{
                 transform: CSS.Transform.toString(transform),
-                transition,
-                touchAction: 'none'
+                transition
             }}
             className={clsx(
                 'p-5',
