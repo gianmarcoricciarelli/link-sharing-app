@@ -19,8 +19,14 @@ interface CustomLinkProps {
 }
 
 export default function CustomLink({ link, index }: CustomLinkProps) {
-    const { attributes, listeners, setNodeRef, transform, transition } =
-        useSortable({ id: index })
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        setActivatorNodeRef,
+        transform,
+        transition
+    } = useSortable({ id: index })
 
     const { platforms, iconForPlatForm, updateLink, removeLink } = useContext(
         LinkCustomizationContext
@@ -37,15 +43,19 @@ export default function CustomLink({ link, index }: CustomLinkProps) {
             className={clsx(
                 'p-5',
                 'bg-lsa-light-grey rounded-xl',
-                'flex flex-col gap-3',
-                'cursor-grab'
+                'flex flex-col gap-3'
             )}
             {...attributes}
-            {...listeners}
         >
             <div className='flex items-baseline justify-between'>
                 <div className='flex items-center gap-2'>
-                    <DragAndDropIcon />
+                    <div
+                        ref={setActivatorNodeRef}
+                        className='cursor-grab'
+                        {...listeners}
+                    >
+                        <DragAndDropIcon />
+                    </div>
                     <Text
                         context='body'
                         size='medium'
@@ -61,14 +71,11 @@ export default function CustomLink({ link, index }: CustomLinkProps) {
                     context='body'
                     size='medium'
                     color='lsa-grey'
-                    onClick={(e) => {
-                        e.stopPropagation()
-                        e.nativeEvent.stopImmediatePropagation()
+                    onClick={() => {
                         removeLink(link)
                     }}
                     onTouchStart={(e) => {
-                        e.stopPropagation()
-                        e.nativeEvent.stopImmediatePropagation()
+                        e.preventDefault()
                         removeLink(link)
                     }}
                 >

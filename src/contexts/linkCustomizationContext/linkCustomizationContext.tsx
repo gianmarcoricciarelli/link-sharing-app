@@ -67,24 +67,30 @@ export function LinkCustomizationContextProvider({
 }: {
     children: ReactNode
 }) {
-    const { setStore, getLoggedUserLinks } = useContext(StoreContext)
+    const { setStore, store } = useContext(StoreContext)
 
-    const [platforms, setPlatforms] = useState<Platform[]>([
-        'GitHub',
-        'Frontend Mentor',
-        'Twitter',
-        'LinkedIn',
-        'YouTube',
-        'Facebook',
-        'Twitch',
-        'Dev.to',
-        'Codewars',
-        'Codepen',
-        'freeCodeCamp',
-        'GitLab',
-        'Hashnode',
-        'Stack Overflow'
-    ])
+    const [platforms, setPlatforms] = useState<Platform[]>(() => {
+        const userPlatforms = store.loggedUser!.links.map((l) => l.platform)
+
+        return (
+            [
+                'GitHub',
+                'Frontend Mentor',
+                'Twitter',
+                'LinkedIn',
+                'YouTube',
+                'Facebook',
+                'Twitch',
+                'Dev.to',
+                'Codewars',
+                'Codepen',
+                'freeCodeCamp',
+                'GitLab',
+                'Hashnode',
+                'Stack Overflow'
+            ].sort((a, b) => a.localeCompare(b)) as Platform[]
+        ).filter((p) => !userPlatforms.includes(p))
+    })
 
     const updateStore = (
         prevStore: LsaLocalStorageStore,
@@ -126,10 +132,13 @@ export function LinkCustomizationContextProvider({
             const newLinks = [...prevStore.loggedUser!.links]
             newLinks[index] = link
 
-            setPlatforms((prevPlatforms) => [
-                prevStore.loggedUser!.links[index].platform,
-                ...prevPlatforms.filter((p) => p !== link.platform)
-            ])
+            setPlatforms(
+                (prevPlatforms) =>
+                    [
+                        prevStore.loggedUser!.links[index].platform,
+                        ...prevPlatforms.filter((p) => p !== link.platform)
+                    ].sort((a, b) => a.localeCompare(b)) as Platform[]
+            )
 
             return updateStore(prevStore, newLinks)
         })
@@ -142,7 +151,12 @@ export function LinkCustomizationContextProvider({
             )
             return updateStore(prevStore, newLinks)
         })
-        setPlatforms((prevPlatforms) => [link.platform, ...prevPlatforms])
+        setPlatforms(
+            (prevPlatforms) =>
+                [link.platform, ...prevPlatforms].sort((a, b) =>
+                    a.localeCompare(b)
+                ) as Platform[]
+        )
     }
 
     const swapLinks = (activeIndex: number, overIndex: number) => {
@@ -177,7 +191,7 @@ export function LinkCustomizationContextProvider({
     return (
         <LinkCustomizationContext.Provider
             value={{
-                links: getLoggedUserLinks(),
+                links: store.loggedUser?.links || [],
                 addLink,
                 updateLink,
                 removeLink,
