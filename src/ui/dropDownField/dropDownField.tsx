@@ -6,6 +6,7 @@ import ChevronDownIcon from '@icons/icon-chevron-down.svg?react'
 import DropDownMenu from '@ui/dropDownMenu/dropDownMenu'
 
 import useClickOutside from '@hooks/useClickOutside'
+import useResizeObserver from '@hooks/useResizeObserver'
 
 interface DropDownFieldProps {
     button: ReactElement
@@ -20,6 +21,7 @@ export default function DropDownField({
     const dropDownMenuRef = useRef<HTMLDivElement>(null)
 
     const clickedOutside = useClickOutside([dropDownButtonRef, dropDownMenuRef])
+    const isMobile = useResizeObserver()
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -31,8 +33,10 @@ export default function DropDownField({
 
     return (
         <div
+            ref={dropDownButtonRef}
             className={clsx(
                 'px-4 py-3',
+                'bg-white',
                 'border-[1px] border-lsa-borders rounded-lg',
                 'flex flex-col',
                 'transition-all duration-300',
@@ -44,10 +48,17 @@ export default function DropDownField({
             )}
         >
             <div
-                ref={dropDownButtonRef}
                 className='flex justify-between items-center gap-3'
-                onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
-                onTouchStart={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
+                onClick={
+                    isMobile
+                        ? undefined
+                        : () => setIsOpen((prevIsOpen) => !prevIsOpen)
+                }
+                onTouchStart={
+                    !isMobile
+                        ? undefined
+                        : () => setIsOpen((prevIsOpen) => !prevIsOpen)
+                }
             >
                 {button}
                 <ChevronDownIcon
