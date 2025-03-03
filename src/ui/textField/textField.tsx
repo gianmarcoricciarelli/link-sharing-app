@@ -43,6 +43,7 @@ export default function TextField({
             <div
                 className={clsx(
                     'transition-all duration-300',
+                    'w-full',
                     'px-4 py-3',
                     'bg-white',
                     'border-[1px] border-lsa-borders rounded-lg focus-within:border-lsa-purple',
@@ -58,8 +59,9 @@ export default function TextField({
                 <input
                     ref={inputRef}
                     className={clsx(
+                        'min-w-0',
                         'outline-0',
-                        'grow',
+                        'flex-1',
                         'text-lsa-dark-gray placeholder:text-lsa-grey',
                         'hover:cursor-pointer',
                         {
@@ -73,7 +75,12 @@ export default function TextField({
                     onChange={onChange}
                 />
                 {error && (
-                    <Text context='body' size='small' color='lsa-red'>
+                    <Text
+                        className='whitespace-nowrap'
+                        context='body'
+                        size='small'
+                        color='lsa-red'
+                    >
                         {error}
                     </Text>
                 )}
