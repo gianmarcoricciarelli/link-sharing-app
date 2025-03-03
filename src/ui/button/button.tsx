@@ -65,7 +65,9 @@ function Secondary({
         >
             {typeof children === 'string' ? (
                 <Text
-                    className={clsx({ 'text-lsa-purple/25!': disabled })}
+                    className={clsx('whitespace-nowrap', {
+                        'text-lsa-purple/25!': disabled
+                    })}
                     context='heading'
                     size='small'
                     fontStyle='medium'

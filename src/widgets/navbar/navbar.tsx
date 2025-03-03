@@ -44,7 +44,10 @@ export default function NavBar({ activeTab, onTabClick }: NavBarProps) {
                         textPosition='right'
                     />
                 </div>
-                <Button.Secondary className={clsx({ 'px-4!': isMobile })}>
+                <Button.Secondary
+                    className={clsx({ 'px-4!': isMobile })}
+                    onClick={() => onTabClick('preview')}
+                >
                     {isMobile ? <PreviewIcon /> : 'Preview'}
                 </Button.Secondary>
             </div>

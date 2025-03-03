@@ -36,8 +36,10 @@ function App() {
     const onTabClickHandler = (tabId: AppSection) => {
         if (tabId === 'links') {
             navigateTo('/')
-        } else {
+        } else if (tabId === 'details') {
             navigateTo('/details')
+        } else {
+            navigateTo('/preview')
         }
     }
 
