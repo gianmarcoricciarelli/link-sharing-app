@@ -1,19 +1,23 @@
 import clsx from 'clsx'
 import { ChangeEventHandler } from 'react'
-import { useOutletContext } from 'react-router'
-
-import { OutletContext } from '@customTypes/index'
 
 import TextField from '@ui/textField/textField'
 
-export default function ProfileDetailsForm() {
-    const {
-        detailsFormData,
-        setDetailsFormData,
-        detailsFormErrors,
-        setDetailFormErrors
-    } = useOutletContext<OutletContext>()
+import { DetailContextProps } from '@contexts/detailsContext/detailsContext'
 
+interface ProfileDetailsFormProps {
+    detailsFormData: DetailContextProps['detailsFormData']
+    setDetailsFormData: DetailContextProps['setDetailsFormData']
+    detailsFormErrors: DetailContextProps['detailsFormErrors']
+    setDetailFormErrors: DetailContextProps['setDetailFormErrors']
+}
+
+export default function ProfileDetailsForm({
+    detailsFormData,
+    setDetailsFormData,
+    detailsFormErrors,
+    setDetailFormErrors
+}: ProfileDetailsFormProps) {
     const onFirstNameChangeHandler: ChangeEventHandler<HTMLInputElement> = (
         e
     ) => {

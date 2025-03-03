@@ -1,12 +1,12 @@
 import clsx from 'clsx'
-import { MouseEventHandler, useContext, useEffect, useState } from 'react'
+import { MouseEventHandler, useContext, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router'
-import { z } from 'zod'
 
 import Button from '@ui/button/button'
 
 import NavBar from '@widgets/navbar/navbar'
 
+import { DetailsContext } from '@contexts/detailsContext/detailsContext'
 import { LinkCustomizationContextProvider } from '@contexts/linkCustomizationContext/linkCustomizationContext'
 import { StoreContext } from '@contexts/storeContext/storeContext'
 
@@ -18,20 +18,9 @@ function App() {
 
     const {
         store: { loggedUser },
-        getLoggedUserLinks,
-        setLoggedUser
+        getLoggedUserLinks
     } = useContext(StoreContext)
-
-    const [detailsFormData, setDetailsFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: ''
-    })
-    const [detailsFormErrors, setDetailFormErrors] = useState({
-        firstName: '',
-        lastName: '',
-        email: ''
-    })
+    const { validateDetails } = useContext(DetailsContext)
 
     const onTabClickHandler = (tabId: AppSection) => {
         if (tabId === 'links') {
@@ -45,31 +34,7 @@ function App() {
 
     const onSaveClickHandler: MouseEventHandler = () => {
         if (location.pathname.includes('details')) {
-            const detailsFormValidationSchema = z.object({
-                firstName: z.string().min(1, 'This field is required'),
-                lastName: z.string().min(1, 'This field is required'),
-                email: z
-                    .string()
-                    .min(1, 'This field is required')
-                    .email('Invalid email')
-            })
-            const validatedData =
-                detailsFormValidationSchema.safeParse(detailsFormData)
-
-            if (!validatedData.success) {
-                const errors = validatedData.error.flatten().fieldErrors
-                console.log(' App ~ errors:', errors)
-
-                setDetailFormErrors({
-                    firstName: errors.firstName?.[0] || '',
-                    lastName: errors.lastName?.[0] || '',
-                    email: errors.email?.[0] || ''
-                })
-
-                return
-            }
-
-            setLoggedUser({ ...loggedUser!, ...detailsFormData })
+            validateDetails()
         } else {
             console.log('TODO: HANDLE CUSTOM LINKS VALIDATION')
         }
@@ -99,14 +64,7 @@ function App() {
                 >
                     <div className='pt-6 px-6 grow'>
                         <LinkCustomizationContextProvider>
-                            <Outlet
-                                context={{
-                                    detailsFormData,
-                                    setDetailsFormData,
-                                    detailsFormErrors,
-                                    setDetailFormErrors
-                                }}
-                            />
+                            <Outlet />
                         </LinkCustomizationContextProvider>
                     </div>
                     <div className='h-[1px] bg-lsa-borders' />

@@ -1,18 +1,22 @@
 import clsx from 'clsx'
-import { ChangeEventHandler, useRef, useState } from 'react'
+import { ChangeEventHandler, useRef } from 'react'
 
 import UploadImageIcon from '@icons/icon-upload-image.svg?react'
 
 import Text from '@ui/text/text'
 
-export default function ImageUploader() {
+import { DetailContextProps } from '@contexts/detailsContext/detailsContext'
+
+export default function ImageUploader({
+    profilePicture,
+    onProfilePictureChange,
+    detailsFormErrors
+}: {
+    profilePicture?: File
+    onProfilePictureChange: ChangeEventHandler<HTMLInputElement>
+    detailsFormErrors: DetailContextProps['detailsFormErrors']
+}) {
     const fileInputRef = useRef<HTMLInputElement>(null)
-
-    const [file, setFile] = useState('')
-
-    const onFileLoadHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
-        setFile(URL.createObjectURL(e.target.files![0]))
-    }
 
     return (
         <div
@@ -40,10 +44,10 @@ export default function ImageUploader() {
                     }
                 }}
             >
-                {file && (
+                {profilePicture && (
                     <img
                         className='h-[193px] w-[193px] rounded-xl'
-                        src={file}
+                        src={URL.createObjectURL(profilePicture)}
                         onClick={() => {
                             if (fileInputRef.current) {
                                 fileInputRef.current.click()
@@ -51,36 +55,38 @@ export default function ImageUploader() {
                         }}
                     />
                 )}
-                {file && (
+                {profilePicture && (
                     <div className='w-full h-full bg-black rounded-xl opacity-50 absolute z-10' />
                 )}
                 <div
                     className={clsx(
                         'flex flex-col justify-center items-center',
-                        { 'absolute z-20': file }
+                        { 'absolute z-20': profilePicture }
                     )}
                 >
                     <UploadImageIcon
-                        className={file ? 'text-white' : 'text-lsa-purple'}
+                        className={
+                            profilePicture ? 'text-white' : 'text-lsa-purple'
+                        }
                     />
                     <Text
                         context='heading'
                         size='small'
-                        color={file ? 'white' : 'lsa-purple'}
+                        color={profilePicture ? 'white' : 'lsa-purple'}
                         fontStyle='bold'
                     >
-                        {!file && (
+                        {!profilePicture && (
                             <Text
                                 context='heading'
                                 size='small'
-                                color={file ? 'white' : 'lsa-purple'}
+                                color={profilePicture ? 'white' : 'lsa-purple'}
                                 fontStyle='bold'
                             >
                                 +
                             </Text>
                         )}
-                        {!file && ' '}
-                        {file ? 'Change Image' : 'Upload Image'}
+                        {!profilePicture && ' '}
+                        {profilePicture ? 'Change Image' : 'Upload Image'}
                     </Text>
                 </div>
             </div>
@@ -90,11 +96,16 @@ export default function ImageUploader() {
                 className='hidden'
                 readOnly
                 accept='.png,.jpg'
-                onChange={onFileLoadHandler}
+                onChange={onProfilePictureChange}
             />
             <Text context='body' size='small' color='lsa-grey'>
                 Image must be below 1024x1024px. Use PNG or JPG format.
             </Text>
+            {detailsFormErrors.dimensions && (
+                <Text context='body' size='small' color='lsa-red'>
+                    {detailsFormErrors.dimensions}
+                </Text>
+            )}
         </div>
     )
 }
