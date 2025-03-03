@@ -18,9 +18,15 @@ function App() {
 
     const {
         store: { loggedUser },
-        getLoggedUserLinks
+        getLoggedUserLinks,
+        setLoggedUser
     } = useContext(StoreContext)
 
+    const [detailsFormData, setDetailsFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: ''
+    })
     const [detailsFormErrors, setDetailFormErrors] = useState({
         firstName: '',
         lastName: '',
@@ -45,11 +51,8 @@ function App() {
                     .min(1, 'This field is required')
                     .email('Invalid email')
             })
-            const validatedData = detailsFormValidationSchema.safeParse({
-                firstName: loggedUser?.firstName,
-                lastName: loggedUser?.lastName,
-                email: loggedUser?.email
-            })
+            const validatedData =
+                detailsFormValidationSchema.safeParse(detailsFormData)
 
             if (!validatedData.success) {
                 const errors = validatedData.error.flatten().fieldErrors
@@ -60,7 +63,11 @@ function App() {
                     lastName: errors.lastName?.[0] || '',
                     email: errors.email?.[0] || ''
                 })
+
+                return
             }
+
+            setLoggedUser({ ...loggedUser!, ...detailsFormData })
         } else {
             console.log('TODO: HANDLE CUSTOM LINKS VALIDATION')
         }
@@ -92,6 +99,8 @@ function App() {
                         <LinkCustomizationContextProvider>
                             <Outlet
                                 context={{
+                                    detailsFormData,
+                                    setDetailsFormData,
                                     detailsFormErrors,
                                     setDetailFormErrors
                                 }}

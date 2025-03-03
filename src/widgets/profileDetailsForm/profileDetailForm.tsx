@@ -1,32 +1,32 @@
 import clsx from 'clsx'
-import { ChangeEventHandler, useContext } from 'react'
+import { ChangeEventHandler } from 'react'
 import { useOutletContext } from 'react-router'
 
 import { OutletContext } from '@customTypes/index'
 
 import TextField from '@ui/textField/textField'
 
-import { StoreContext } from '@contexts/storeContext/storeContext'
-
 export default function ProfileDetailsForm() {
     const {
-        store: { loggedUser },
-        setFirstName,
-        setLastName,
-        setEmail
-    } = useContext(StoreContext)
+        detailsFormData,
+        setDetailsFormData,
+        detailsFormErrors,
+        setDetailFormErrors
+    } = useOutletContext<OutletContext>()
 
-    const { detailsFormErrors, setDetailFormErrors } =
-        useOutletContext<OutletContext>()
-
-    const onNameChangeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const onFirstNameChangeHandler: ChangeEventHandler<HTMLInputElement> = (
+        e
+    ) => {
         if (detailsFormErrors.firstName) {
             setDetailFormErrors((prevErrors) => ({
                 ...prevErrors,
                 firstName: ''
             }))
         }
-        setFirstName(e.target.value)
+        setDetailsFormData((prevData) => ({
+            ...prevData,
+            firstName: e.target.value
+        }))
     }
     const onLastNameChangeHandler: ChangeEventHandler<HTMLInputElement> = (
         e
@@ -37,7 +37,10 @@ export default function ProfileDetailsForm() {
                 lastName: ''
             }))
         }
-        setLastName(e.target.value)
+        setDetailsFormData((prevData) => ({
+            ...prevData,
+            lastName: e.target.value
+        }))
     }
     const onEmailChangeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
         if (detailsFormErrors.email) {
@@ -46,7 +49,10 @@ export default function ProfileDetailsForm() {
                 email: ''
             }))
         }
-        setEmail(e.target.value)
+        setDetailsFormData((prevData) => ({
+            ...prevData,
+            email: e.target.value
+        }))
     }
 
     return (
@@ -62,15 +68,15 @@ export default function ProfileDetailsForm() {
                 name='name'
                 placeholder='e.g. John'
                 label='First name*'
-                value={loggedUser?.firstName}
-                onChange={onNameChangeHandler}
+                value={detailsFormData.firstName}
+                onChange={onFirstNameChangeHandler}
                 error={detailsFormErrors.firstName}
             />
             <TextField
                 name='lastName'
                 placeholder='e.g. Doe'
                 label='Last name*'
-                value={loggedUser?.lastName}
+                value={detailsFormData.lastName}
                 onChange={onLastNameChangeHandler}
                 error={detailsFormErrors.lastName}
             />
@@ -78,7 +84,7 @@ export default function ProfileDetailsForm() {
                 name='email'
                 placeholder='e.g. email@provider.com'
                 label='Email'
-                value={loggedUser?.email}
+                value={detailsFormData.email}
                 onChange={onEmailChangeHandler}
                 error={detailsFormErrors.email}
             />

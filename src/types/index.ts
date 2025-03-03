@@ -8,6 +8,18 @@ export type SvgrIcon = FunctionComponent<SVGProps<SVGSVGElement>> & {
 }
 
 export type OutletContext = {
+    detailsFormData: {
+        firstName: string
+        lastName: string
+        email: string
+    }
+    setDetailsFormData: Dispatch<
+        SetStateAction<{
+            firstName: string
+            lastName: string
+            email: string
+        }>
+    >
     detailsFormErrors: {
         firstName: string
         lastName: string

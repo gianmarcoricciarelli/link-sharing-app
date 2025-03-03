@@ -14,20 +14,21 @@ import { StoreContext } from '@contexts/storeContext/storeContext'
 export default function Login() {
     const navigateTo = useNavigate()
 
-    const { setLoggedUser, getUsers } = useContext(StoreContext)
+    const { setLoggedUser, getUserByEmail } = useContext(StoreContext)
 
     const onLoginFormSubmitHandler: FormEventHandler<HTMLFormElement> = (e) => {
         const { email, password } = Object.fromEntries(
             new FormData(e.target as HTMLFormElement)
-        ) as Omit<User, 'links'>
+        ) as Omit<User, 'links' | 'id'>
         const loggedUser: User = {
+            id: getUserByEmail(email)?.id || -1,
             email,
             password,
-            links: getUsers().find((u) => u.email === email)!.links
+            links: getUserByEmail(email)?.links || []
         }
-        const users = getUsers()
 
-        if (!users.find((u) => u.email === loggedUser.email)) {
+        if (!getUserByEmail(loggedUser.email)) {
+            console.log('hello')
             navigateTo('/create-account')
 
             return
