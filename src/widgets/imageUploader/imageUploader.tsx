@@ -9,7 +9,6 @@ export default function ImageUploader() {
     const fileInputRef = useRef<HTMLInputElement>(null)
 
     const [file, setFile] = useState('')
-    console.log(' ImageUploader ~ file:', file)
 
     const onFileLoadHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
         setFile(URL.createObjectURL(e.target.files![0]))
@@ -27,49 +26,64 @@ export default function ImageUploader() {
             <Text context='body' size='medium' color='lsa-grey'>
                 Profile picture
             </Text>
-            {file ? (
-                <img
-                    className='h-[193px] w-[193px] rounded-xl'
-                    src={file}
-                    onClick={() => {
-                        if (fileInputRef.current) {
-                            fileInputRef.current.click()
-                        }
-                    }}
-                />
-            ) : (
+            <div
+                className={clsx(
+                    'h-[193px] w-[193px]',
+                    'bg-lsa-light-purple',
+                    'rounded-xl',
+                    'flex flex-col justify-center items-center',
+                    'relative'
+                )}
+                onClick={() => {
+                    if (fileInputRef.current) {
+                        fileInputRef.current.click()
+                    }
+                }}
+            >
+                {file && (
+                    <img
+                        className='h-[193px] w-[193px] rounded-xl'
+                        src={file}
+                        onClick={() => {
+                            if (fileInputRef.current) {
+                                fileInputRef.current.click()
+                            }
+                        }}
+                    />
+                )}
+                {file && (
+                    <div className='w-full h-full bg-black rounded-xl opacity-50 absolute z-10' />
+                )}
                 <div
                     className={clsx(
-                        'h-[193px] w-[193px]',
-                        'bg-lsa-light-purple',
-                        'rounded-xl',
-                        'flex flex-col justify-center items-center'
+                        'flex flex-col justify-center items-center',
+                        { 'absolute z-20': file }
                     )}
-                    onClick={() => {
-                        if (fileInputRef.current) {
-                            fileInputRef.current.click()
-                        }
-                    }}
                 >
-                    <UploadImageIcon />
+                    <UploadImageIcon
+                        className={file ? 'text-white' : 'text-lsa-purple'}
+                    />
                     <Text
                         context='heading'
                         size='small'
-                        color='lsa-purple'
+                        color={file ? 'white' : 'lsa-purple'}
                         fontStyle='bold'
                     >
-                        <Text
-                            context='heading'
-                            size='small'
-                            color='lsa-purple'
-                            fontStyle='bold'
-                        >
-                            +
-                        </Text>{' '}
-                        Upload Image
+                        {!file && (
+                            <Text
+                                context='heading'
+                                size='small'
+                                color={file ? 'white' : 'lsa-purple'}
+                                fontStyle='bold'
+                            >
+                                +
+                            </Text>
+                        )}
+                        {!file && ' '}
+                        {file ? 'Change Image' : 'Upload Image'}
                     </Text>
                 </div>
-            )}
+            </div>
             <input
                 ref={fileInputRef}
                 type='file'
