@@ -1,10 +1,25 @@
-import { FunctionComponent, SVGProps } from 'react'
+import { Dispatch, FunctionComponent, SetStateAction, SVGProps } from 'react'
 
 export type SvgrIcon = FunctionComponent<SVGProps<SVGSVGElement>> & {
     title?: string
     titleId?: string
     desc?: string
     descId?: string
+}
+
+export type OutletContext = {
+    detailsFormErrors: {
+        firstName: string
+        lastName: string
+        email: string
+    }
+    setDetailFormErrors: Dispatch<
+        SetStateAction<{
+            firstName: string
+            lastName: string
+            email: string
+        }>
+    >
 }
 
 export type Color =
@@ -36,9 +51,12 @@ export type Link = {
 }
 
 export type User = {
+    id: number
     email: string
     password: string
     links: Link[]
+    firstName?: string
+    lastName?: string
 }
 
 export type LsaLocalStorageStore = {

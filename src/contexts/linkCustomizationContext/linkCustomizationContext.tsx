@@ -70,7 +70,9 @@ export function LinkCustomizationContextProvider({
     const { setStore, store } = useContext(StoreContext)
 
     const [platforms, setPlatforms] = useState<Platform[]>(() => {
-        const userPlatforms = store.loggedUser!.links.map((l) => l.platform)
+        const userPlatforms = store.loggedUser?.links
+            ? store.loggedUser.links.map((l) => l.platform)
+            : []
 
         return (
             [
@@ -101,7 +103,7 @@ export function LinkCustomizationContextProvider({
             links: newLinks
         }
         const newUsers = [
-            ...prevStore.users.filter((u) => u.email !== newLoggedUser.email),
+            ...prevStore.users.filter((u) => u.id !== newLoggedUser.id),
             newLoggedUser
         ]
 

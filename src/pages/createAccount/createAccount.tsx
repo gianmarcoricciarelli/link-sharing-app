@@ -14,15 +14,18 @@ import { StoreContext } from '@contexts/storeContext/storeContext'
 export default function CreateAccount() {
     const navigateTo = useNavigate()
 
-    const { setLoggedUser } = useContext(StoreContext)
+    const { store, setLoggedUser } = useContext(StoreContext)
 
     const onCreateAccountFormSubmitHandler: FormEventHandler<
         HTMLFormElement
     > = (e) => {
+        const ids = store.users.map((u) => u.id)
+        const newId = ids.length ? Math.max(...ids) : 0
         const newUser: User = {
             ...(Object.fromEntries(
                 new FormData(e.target as HTMLFormElement)
-            ) as Omit<User, 'links'>),
+            ) as Omit<User, 'links' | 'id'>),
+            id: newId,
             links: []
         }
 

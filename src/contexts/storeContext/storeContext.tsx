@@ -15,7 +15,11 @@ interface StoreContextProps {
     setLoggedUser: (user: User) => void
     getLoggedUser: () => User | undefined
     getUsers: () => User[]
+    getUserByEmail: (email: string) => User | undefined
     getLoggedUserLinks: () => Link[]
+    setFirstName: (firstName: string) => void
+    setLastName: (lastName: string) => void
+    setEmail: (email: string) => void
 }
 
 export const StoreContext = createContext<StoreContextProps>({
@@ -24,7 +28,11 @@ export const StoreContext = createContext<StoreContextProps>({
     setLoggedUser: () => {},
     getLoggedUser: () => undefined,
     getUsers: () => [],
-    getLoggedUserLinks: () => []
+    getUserByEmail: () => undefined,
+    getLoggedUserLinks: () => [],
+    setFirstName: () => {},
+    setLastName: () => {},
+    setEmail: () => {}
 })
 
 export function StoreContextProvider({ children }: { children: ReactNode }) {
@@ -40,7 +48,7 @@ export function StoreContextProvider({ children }: { children: ReactNode }) {
         setStore((prevStore) => {
             const users = [...prevStore.users]
 
-            if (!users.find((u) => u.email === loggedUser.email)) {
+            if (!users.find((u) => u.id === loggedUser.id)) {
                 users.push(loggedUser)
             }
 
@@ -53,8 +61,68 @@ export function StoreContextProvider({ children }: { children: ReactNode }) {
 
     const getUsers = (): User[] => store.users
 
+    const getUserByEmail = (email: string): User | undefined => {
+        return getUsers().find((u) => u.email === email)
+    }
+
     const getLoggedUserLinks = (): Link[] => {
         return store.loggedUser?.links || []
+    }
+
+    const setFirstName = (firstName: string) => {
+        setStore((prevStore) => {
+            const newStore = {
+                ...prevStore,
+                loggedUser: {
+                    ...prevStore.loggedUser!,
+                    firstName
+                }
+            }
+            newStore.users.find(
+                (u) => u.id === newStore.loggedUser.id
+            )!.firstName = firstName
+
+            localStorage.setItem('lsa', JSON.stringify(newStore))
+
+            return newStore
+        })
+    }
+
+    const setLastName = (lastName: string) => {
+        setStore((prevStore) => {
+            const newStore = {
+                ...prevStore,
+                loggedUser: {
+                    ...prevStore.loggedUser!,
+                    lastName
+                }
+            }
+            newStore.users.find(
+                (u) => u.id === newStore.loggedUser.id
+            )!.lastName = lastName
+
+            localStorage.setItem('lsa', JSON.stringify(newStore))
+
+            return newStore
+        })
+    }
+
+    const setEmail = (email: string) => {
+        setStore((prevStore) => {
+            const newStore = {
+                ...prevStore,
+                loggedUser: {
+                    ...prevStore.loggedUser!,
+                    email
+                }
+            }
+            newStore.users.find((u) => u.id === newStore.loggedUser.id)!.email =
+                email
+
+            localStorage.setItem('lsa', JSON.stringify(newStore))
+
+            return newStore
+        })
     }
 
     return (
@@ -65,7 +133,11 @@ export function StoreContextProvider({ children }: { children: ReactNode }) {
                 setLoggedUser,
                 getLoggedUser,
                 getUsers,
-                getLoggedUserLinks
+                getUserByEmail,
+                getLoggedUserLinks,
+                setFirstName,
+                setLastName,
+                setEmail
             }}
         >
             {children}
