@@ -24,7 +24,7 @@ export default function ImageUploader({
                 'p-5',
                 'bg-lsa-light-grey',
                 'rounded-xl',
-                'flex flex-col gap-3'
+                'flex flex-col mobile:grid mobile:grid-cols-[2fr_1fr_1fr] mobile:items-center gap-3 mobile:gap-4'
             )}
         >
             <Text context='body' size='medium' color='lsa-grey'>

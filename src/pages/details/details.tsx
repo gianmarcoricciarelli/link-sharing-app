@@ -2,6 +2,8 @@ import { useContext } from 'react'
 
 import Text from '@ui/text/text'
 
+import useResizeObserver from '@hooks/useResizeObserver'
+
 import ImageUploader from '@widgets/imageUploader/imageUploader'
 import ProfileDetailsForm from '@widgets/profileDetailsForm/profileDetailForm'
 
@@ -17,6 +19,8 @@ export default function Details() {
         onProfilePictureChange
     } = useContext(DetailsContext)
 
+    const { isMobile } = useResizeObserver()
+
     return (
         <div className='flex flex-col gap-10'>
             <div className='flex flex-col gap-2'>
@@ -28,17 +32,36 @@ export default function Details() {
                 </Text>
             </div>
             <div className='flex flex-col gap-6'>
-                <ProfileDetailsForm
-                    detailsFormData={detailsFormData}
-                    setDetailsFormData={setDetailsFormData}
-                    detailsFormErrors={detailsFormErrors}
-                    setDetailFormErrors={setDetailFormErrors}
-                />
-                <ImageUploader
-                    profilePicture={detailsFile}
-                    onProfilePictureChange={onProfilePictureChange}
-                    detailsFormErrors={detailsFormErrors}
-                />
+                {isMobile && (
+                    <>
+                        <ProfileDetailsForm
+                            detailsFormData={detailsFormData}
+                            setDetailsFormData={setDetailsFormData}
+                            detailsFormErrors={detailsFormErrors}
+                            setDetailFormErrors={setDetailFormErrors}
+                        />
+                        <ImageUploader
+                            profilePicture={detailsFile}
+                            onProfilePictureChange={onProfilePictureChange}
+                            detailsFormErrors={detailsFormErrors}
+                        />
+                    </>
+                )}
+                {!isMobile && (
+                    <>
+                        <ImageUploader
+                            profilePicture={detailsFile}
+                            onProfilePictureChange={onProfilePictureChange}
+                            detailsFormErrors={detailsFormErrors}
+                        />
+                        <ProfileDetailsForm
+                            detailsFormData={detailsFormData}
+                            setDetailsFormData={setDetailsFormData}
+                            detailsFormErrors={detailsFormErrors}
+                            setDetailFormErrors={setDetailFormErrors}
+                        />
+                    </>
+                )}
             </div>
         </div>
     )

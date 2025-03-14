@@ -3,6 +3,8 @@ import { ChangeEventHandler } from 'react'
 
 import TextField from '@ui/textField/textField'
 
+import useResizeObserver from '@hooks/useResizeObserver'
+
 import { DetailContextProps } from '@contexts/detailsContext/detailsContext'
 
 interface ProfileDetailsFormProps {
@@ -18,6 +20,8 @@ export default function ProfileDetailsForm({
     detailsFormErrors,
     setDetailFormErrors
 }: ProfileDetailsFormProps) {
+    const { isMobile } = useResizeObserver()
+
     const onFirstNameChangeHandler: ChangeEventHandler<HTMLInputElement> = (
         e
     ) => {
@@ -68,30 +72,63 @@ export default function ProfileDetailsForm({
                 'flex flex-col gap-3'
             )}
         >
-            <TextField
-                name='name'
-                placeholder='e.g. John'
-                label='First name*'
-                value={detailsFormData.firstName}
-                onChange={onFirstNameChangeHandler}
-                error={detailsFormErrors.firstName}
-            />
-            <TextField
-                name='lastName'
-                placeholder='e.g. Doe'
-                label='Last name*'
-                value={detailsFormData.lastName}
-                onChange={onLastNameChangeHandler}
-                error={detailsFormErrors.lastName}
-            />
-            <TextField
-                name='email'
-                placeholder='e.g. email@provider.com'
-                label='Email'
-                value={detailsFormData.email}
-                onChange={onEmailChangeHandler}
-                error={detailsFormErrors.email}
-            />
+            <div className='mobile:flex mobile:items-center mobile:gap-4'>
+                {!isMobile && (
+                    <label
+                        className='w-60 text-base text-lsa-grey'
+                        htmlFor='name'
+                    >
+                        First Name*
+                    </label>
+                )}
+                <TextField
+                    className='mobile:grow'
+                    name='name'
+                    placeholder='e.g. John'
+                    label={isMobile ? 'First name*' : undefined}
+                    value={detailsFormData.firstName}
+                    onChange={onFirstNameChangeHandler}
+                    error={detailsFormErrors.firstName}
+                />
+            </div>
+            <div className='mobile:flex mobile:items-center mobile:gap-4'>
+                {!isMobile && (
+                    <label
+                        className='w-60 text-base text-lsa-grey'
+                        htmlFor='lastName'
+                    >
+                        Last Name*
+                    </label>
+                )}
+                <TextField
+                    className='mobile:grow'
+                    name='lastName'
+                    placeholder='e.g. Doe'
+                    label={isMobile ? 'Last name*' : undefined}
+                    value={detailsFormData.lastName}
+                    onChange={onLastNameChangeHandler}
+                    error={detailsFormErrors.lastName}
+                />
+            </div>
+            <div className='mobile:flex mobile:items-center mobile:gap-4'>
+                {!isMobile && (
+                    <label
+                        className='w-60 text-base text-lsa-grey'
+                        htmlFor='email'
+                    >
+                        Email*
+                    </label>
+                )}
+                <TextField
+                    className='mobile:grow'
+                    name='email'
+                    placeholder='e.g. email@provider.com'
+                    label={isMobile ? 'Email' : undefined}
+                    value={detailsFormData.email}
+                    onChange={onEmailChangeHandler}
+                    error={detailsFormErrors.email}
+                />
+            </div>
         </form>
     )
 }

@@ -7,6 +7,7 @@ interface TextFieldProps {
     placeholder: string
     name: string
     onChange: ChangeEventHandler<HTMLInputElement>
+    className?: string
     icon?: ReactNode
     value?: string
     label?: string
@@ -17,6 +18,7 @@ export default function TextField({
     placeholder,
     name,
     onChange,
+    className,
     icon,
     value,
     label,
@@ -32,7 +34,11 @@ export default function TextField({
 
     return (
         <div
-            className={clsx('flex flex-col gap-1', 'hover:cursor-pointer')}
+            className={clsx(
+                className,
+                'flex flex-col gap-1',
+                'hover:cursor-pointer'
+            )}
             onClick={onClickHandler}
         >
             {label && (
@@ -68,6 +74,7 @@ export default function TextField({
                             'text-lsa-red': error
                         }
                     )}
+                    id={name}
                     name={name}
                     type='text'
                     placeholder={placeholder}
