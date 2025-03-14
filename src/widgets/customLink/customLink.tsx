@@ -36,7 +36,7 @@ export default function CustomLink({ link, index }: CustomLinkProps) {
         LinkCustomizationContext
     )
 
-    const isMobile = useResizeObserver()
+    const { isMobile } = useResizeObserver()
 
     const [typedLink, setTypedLink] = useState(link.link)
 
@@ -79,7 +79,7 @@ export default function CustomLink({ link, index }: CustomLinkProps) {
                     </Text>
                 </div>
                 <Text
-                    className='select-none'
+                    className='select-none cursor-pointer'
                     draggable={false}
                     context='body'
                     size='medium'
