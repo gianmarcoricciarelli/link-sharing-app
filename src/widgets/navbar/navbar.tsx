@@ -23,9 +23,7 @@ export default function NavBar({ activeTab, onTabClick }: NavBarProps) {
     return (
         <div className={clsx('p-4 bg-white', 'rounded-b-xl', 'flex')}>
             <div className='w-full flex justify-between items-center'>
-                <div className='w-13'>
-                    <DevLinks logoSize={isMobile ? 'small' : 'large'} />
-                </div>
+                <DevLinks logoSize={isMobile ? 'small' : 'large'} />
                 <div className='flex items-center'>
                     <Tab
                         id='links'
