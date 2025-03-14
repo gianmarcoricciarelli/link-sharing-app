@@ -68,9 +68,9 @@ function App() {
                         </LinkCustomizationContextProvider>
                     </div>
                     <div className='h-[1px] bg-lsa-borders' />
-                    <div className='px-6 pb-6'>
+                    <div className='px-6 pb-6 mobile:flex mobile:justify-end'>
                         <Button.Primary
-                            className='w-full'
+                            className='w-full mobile:w-[unset]'
                             onClick={onSaveClickHandler}
                             disabled={
                                 location.pathname.includes('details')
