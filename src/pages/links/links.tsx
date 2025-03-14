@@ -20,6 +20,8 @@ import PhoneMockupIllustration from '@icons/illustration-empty.svg?react'
 import Button from '@ui/button/button'
 import Text from '@ui/text/text'
 
+import useResizeObserver from '@hooks/useResizeObserver'
+
 import CustomLink from '@widgets/customLink/customLink'
 
 import { LinkCustomizationContext } from '@contexts/linkCustomizationContext/linkCustomizationContext'
@@ -28,6 +30,8 @@ export default function Links() {
     const { links, addLink, platforms, swapLinks } = useContext(
         LinkCustomizationContext
     )
+
+    const { isMobile } = useResizeObserver()
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -45,7 +49,7 @@ export default function Links() {
     }
 
     return (
-        <div className='flex flex-col gap-10'>
+        <div className='flex flex-col gap-10 mobile:h-full'>
             <div className='flex flex-col gap-2'>
                 <Text className='text-2xl!' fontStyle='bold'>
                     Customize your links
@@ -60,7 +64,7 @@ export default function Links() {
                 collisionDetection={closestCenter}
                 onDragEnd={onDragEndHandler}
             >
-                <div className='flex flex-col gap-6'>
+                <div className='flex flex-col gap-6 mobile:grow'>
                     <Button.Secondary
                         onClick={() =>
                             addLink({ link: '', platform: platforms[0] })
@@ -71,13 +75,25 @@ export default function Links() {
                     {links.length === 0 && (
                         <div
                             className={clsx(
-                                'py-11 px-5 bg-lsa-light-grey rounded-xl',
-                                'flex flex-col gap-3'
+                                'p-11 px-5 bg-lsa-light-grey rounded-xl',
+                                'flex flex-col mobile:justify-center gap-3',
+                                'mobile:grow'
                             )}
                         >
-                            <div className='text-center flex flex-col items-center gap-6'>
-                                <PhoneMockupIllustration className='w-31 h-20' />
-                                <Text className='text-2xl!' fontStyle='bold'>
+                            <div className='mobile:px-20 text-center flex flex-col items-center gap-6 mobile:gap-10'>
+                                <PhoneMockupIllustration
+                                    className={
+                                        isMobile ? 'w-31 h-20' : undefined
+                                    }
+                                />
+                                <Text
+                                    className={
+                                        isMobile ? 'text-2xl!' : undefined
+                                    }
+                                    context={isMobile ? undefined : 'heading'}
+                                    size={isMobile ? undefined : 'medium'}
+                                    fontStyle='bold'
+                                >
                                     Let's get you started
                                 </Text>
                                 <Text
