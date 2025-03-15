@@ -16,20 +16,33 @@ export default function Preview() {
     } = useContext(StoreContext)
 
     return (
-        <div className='h-full flex flex-col items-center'>
+        <div className='h-full flex flex-col items-center mobile:relative'>
+            <div className='w-full mobile:h-[375px] mobile:p-6 mobile:bg-lsa-purple mobile:rounded-b-3xl'>
+                <div
+                    className={clsx(
+                        'w-full',
+                        'py-4 px-6',
+                        'grid grid-cols-2 gap-4',
+                        'mobile:bg-white mobile:rounded-xl',
+                        'mobile:flex mobile:justify-between'
+                    )}
+                >
+                    <Button.Secondary onClick={() => navigateTo('/details')}>
+                        Back to Editor
+                    </Button.Secondary>
+                    <Button.Primary>Share Link</Button.Primary>
+                </div>
+            </div>
             <div
                 className={clsx(
-                    'w-full',
-                    'py-4 px-6',
-                    'grid grid-cols-2 gap-4'
+                    'w-[237px] grow flex flex-col justify-center items-center gap-14',
+                    'mobile:absolute mobile:top-1/2 left-1/2 mobile:-translate-1/2',
+                    'mobile:w-fit mobile:h-fit',
+                    'mobile:px-14 mobile:py-12',
+                    'mobile:bg-white mobile:rounded-3xl',
+                    'mobile:shadow-lg'
                 )}
             >
-                <Button.Secondary onClick={() => navigateTo('/details')}>
-                    Back to Editor
-                </Button.Secondary>
-                <Button.Primary>Share Link</Button.Primary>
-            </div>
-            <div className='w-[237px] grow flex flex-col justify-center items-center gap-14'>
                 {loggedUser?.firstName &&
                     loggedUser?.lastName &&
                     loggedUser?.email &&
@@ -40,7 +53,13 @@ export default function Preview() {
                                     'w-26 h-26',
                                     'rounded-full border-4 border-lsa-purple'
                                 )}
-                            ></div>
+                            >
+                                <img
+                                    src={URL.createObjectURL(
+                                        loggedUser.profilePicture
+                                    )}
+                                />
+                            </div>
                             <div className='flex flex-col gap-2 text-center'>
                                 <Text
                                     context='heading'

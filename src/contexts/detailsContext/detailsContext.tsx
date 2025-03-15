@@ -139,7 +139,11 @@ export default function DetailsContextProvider({
             return false
         }
 
-        setLoggedUser({ ...loggedUser!, ...detailsFormData })
+        setLoggedUser({
+            ...loggedUser!,
+            ...detailsFormData,
+            profilePicture: detailsFile
+        })
 
         return true
     }
