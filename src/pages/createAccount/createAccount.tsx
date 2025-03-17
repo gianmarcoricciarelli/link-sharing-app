@@ -37,15 +37,15 @@ export default function CreateAccount() {
         <div
             className={clsx(
                 'h-full p-8',
-                'flex flex-col tablet:justify-center tablet:items-center gap-16 tablet:gap-12'
+                'flex flex-col md:justify-center md:items-center gap-16 md:gap-12'
             )}
         >
             <DevLinks logoSize='large' />
             <div
                 className={clsx(
-                    'tablet:bg-white',
-                    'tablet:w-[476px] tablet:p-10',
-                    'tablet:rounded-xl',
+                    'md:bg-white',
+                    'md:w-[476px] md:p-10',
+                    'md:rounded-xl',
                     'flex flex-col gap-10'
                 )}
             >
@@ -67,7 +67,7 @@ export default function CreateAccount() {
                     />
                     <div
                         className={clsx(
-                            'flex flex-col tablet:flex-row tablet:justify-center text-center'
+                            'flex flex-col md:flex-row md:justify-center text-center'
                         )}
                     >
                         <Text context='body' size='medium' color='lsa-grey'>

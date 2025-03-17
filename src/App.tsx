@@ -58,7 +58,7 @@ function App() {
                 }
                 onTabClick={onTabClickHandler}
             />
-            <div className={clsx('tablet:px-6 tablet:pb-6', 'grow flex')}>
+            <div className={clsx('xl:px-6 xl:pb-6', 'grow flex')}>
                 {!isMobile && !isTablet && <p>Is Mobilbbe</p>}
                 <div className='p-4 grow'>
                     <div
@@ -68,13 +68,19 @@ function App() {
                             'flex flex-col gap-6'
                         )}
                     >
-                        <div className='pt-6 px-6 tablet:pt-10 tablet:px-10 grow'>
+                        <div className='pt-6 px-6 xl:pt-10 xl:px-10 grow'>
                             <LinkCustomizationContextProvider>
                                 <Outlet />
                             </LinkCustomizationContextProvider>
                         </div>
                         <div className='h-[1px] bg-lsa-borders' />
-                        <div className='px-6 pb-6 tablet:px-10 tablet:pb-10 md:flex md:justify-end'>
+                        <div
+                            className={clsx(
+                                'px-6 pb-6 ',
+                                'xl:px-10 xl:pb-10',
+                                'md:flex md:justify-end'
+                            )}
+                        >
                             <Button.Primary
                                 className='w-full md:w-[unset]'
                                 onClick={onSaveClickHandler}
