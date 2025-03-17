@@ -4,6 +4,8 @@ import { Outlet, useLocation, useNavigate } from 'react-router'
 
 import Button from '@ui/button/button'
 
+import useResizeObserver from '@hooks/useResizeObserver'
+
 import NavBar from '@widgets/navbar/navbar'
 
 import { DetailsContext } from '@contexts/detailsContext/detailsContext'
@@ -21,6 +23,8 @@ function App() {
         getLoggedUserLinks
     } = useContext(StoreContext)
     const { validateDetails } = useContext(DetailsContext)
+
+    const { isMobile, isTablet } = useResizeObserver()
 
     const onTabClickHandler = (tabId: AppSection) => {
         if (tabId === 'links') {
@@ -54,32 +58,35 @@ function App() {
                 }
                 onTabClick={onTabClickHandler}
             />
-            <div className='p-4 grow'>
-                <div
-                    className={clsx(
-                        'h-full bg-white',
-                        'rounded-xl',
-                        'flex flex-col gap-6'
-                    )}
-                >
-                    <div className='pt-6 px-6 grow'>
-                        <LinkCustomizationContextProvider>
-                            <Outlet />
-                        </LinkCustomizationContextProvider>
-                    </div>
-                    <div className='h-[1px] bg-lsa-borders' />
-                    <div className='px-6 pb-6 mobile:flex mobile:justify-end'>
-                        <Button.Primary
-                            className='w-full mobile:w-[unset]'
-                            onClick={onSaveClickHandler}
-                            disabled={
-                                location.pathname.includes('details')
-                                    ? false
-                                    : getLoggedUserLinks().length === 0
-                            }
-                        >
-                            Save
-                        </Button.Primary>
+            <div className={clsx('tablet:px-6 tablet:pb-6', 'grow flex')}>
+                {!isMobile && !isTablet && <p>Is Mobilbbe</p>}
+                <div className='p-4 grow'>
+                    <div
+                        className={clsx(
+                            'h-full bg-white',
+                            'rounded-xl',
+                            'flex flex-col gap-6'
+                        )}
+                    >
+                        <div className='pt-6 px-6 tablet:pt-10 tablet:px-10 grow'>
+                            <LinkCustomizationContextProvider>
+                                <Outlet />
+                            </LinkCustomizationContextProvider>
+                        </div>
+                        <div className='h-[1px] bg-lsa-borders' />
+                        <div className='px-6 pb-6 tablet:px-10 tablet:pb-10 md:flex md:justify-end'>
+                            <Button.Primary
+                                className='w-full md:w-[unset]'
+                                onClick={onSaveClickHandler}
+                                disabled={
+                                    location.pathname.includes('details')
+                                        ? false
+                                        : getLoggedUserLinks().length === 0
+                                }
+                            >
+                                Save
+                            </Button.Primary>
+                        </div>
                     </div>
                 </div>
             </div>

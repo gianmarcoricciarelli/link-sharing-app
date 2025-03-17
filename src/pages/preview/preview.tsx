@@ -16,15 +16,15 @@ export default function Preview() {
     } = useContext(StoreContext)
 
     return (
-        <div className='h-full flex flex-col items-center mobile:relative'>
-            <div className='w-full mobile:h-[375px] mobile:p-6 mobile:bg-lsa-purple mobile:rounded-b-3xl'>
+        <div className='h-full flex flex-col items-center md:relative'>
+            <div className='w-full md:h-[375px] md:p-6 md:bg-lsa-purple md:rounded-b-3xl'>
                 <div
                     className={clsx(
                         'w-full',
                         'py-4 px-6',
                         'grid grid-cols-2 gap-4',
-                        'mobile:bg-white mobile:rounded-xl',
-                        'mobile:flex mobile:justify-between'
+                        'md:bg-white md:rounded-xl',
+                        'md:flex md:justify-between'
                     )}
                 >
                     <Button.Secondary onClick={() => navigateTo('/details')}>
@@ -36,11 +36,11 @@ export default function Preview() {
             <div
                 className={clsx(
                     'w-[237px] grow flex flex-col justify-center items-center gap-14',
-                    'mobile:absolute mobile:top-1/2 left-1/2 mobile:-translate-1/2',
-                    'mobile:w-fit mobile:h-fit',
-                    'mobile:px-14 mobile:py-12',
-                    'mobile:bg-white mobile:rounded-3xl',
-                    'mobile:shadow-lg'
+                    'md:absolute md:top-1/2 left-1/2 md:-translate-1/2',
+                    'md:w-fit md:h-fit',
+                    'md:px-14 md:py-12',
+                    'md:bg-white md:rounded-3xl',
+                    'md:shadow-lg'
                 )}
             >
                 {loggedUser?.firstName &&

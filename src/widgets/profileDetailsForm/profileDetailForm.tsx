@@ -72,7 +72,7 @@ export default function ProfileDetailsForm({
                 'flex flex-col gap-3'
             )}
         >
-            <div className='mobile:flex mobile:items-center mobile:gap-4'>
+            <div className='md:flex md:items-center md:gap-4'>
                 {!isMobile && (
                     <label
                         className='w-60 text-base text-lsa-grey'
@@ -82,7 +82,7 @@ export default function ProfileDetailsForm({
                     </label>
                 )}
                 <TextField
-                    className='mobile:grow'
+                    className='md:grow'
                     name='name'
                     placeholder='e.g. John'
                     label={isMobile ? 'First name*' : undefined}
@@ -91,7 +91,7 @@ export default function ProfileDetailsForm({
                     error={detailsFormErrors.firstName}
                 />
             </div>
-            <div className='mobile:flex mobile:items-center mobile:gap-4'>
+            <div className='md:flex md:items-center md:gap-4'>
                 {!isMobile && (
                     <label
                         className='w-60 text-base text-lsa-grey'
@@ -101,7 +101,7 @@ export default function ProfileDetailsForm({
                     </label>
                 )}
                 <TextField
-                    className='mobile:grow'
+                    className='md:grow'
                     name='lastName'
                     placeholder='e.g. Doe'
                     label={isMobile ? 'Last name*' : undefined}
@@ -110,7 +110,7 @@ export default function ProfileDetailsForm({
                     error={detailsFormErrors.lastName}
                 />
             </div>
-            <div className='mobile:flex mobile:items-center mobile:gap-4'>
+            <div className='md:flex md:items-center md:gap-4'>
                 {!isMobile && (
                     <label
                         className='w-60 text-base text-lsa-grey'
@@ -120,7 +120,7 @@ export default function ProfileDetailsForm({
                     </label>
                 )}
                 <TextField
-                    className='mobile:grow'
+                    className='md:grow'
                     name='email'
                     placeholder='e.g. email@provider.com'
                     label={isMobile ? 'Email' : undefined}

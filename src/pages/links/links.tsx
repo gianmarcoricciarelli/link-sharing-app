@@ -49,7 +49,7 @@ export default function Links() {
     }
 
     return (
-        <div className='flex flex-col gap-10 mobile:h-full'>
+        <div className='flex flex-col gap-10 md:h-full'>
             <div className='flex flex-col gap-2'>
                 <Text className='text-2xl!' fontStyle='bold'>
                     Customize your links
@@ -64,7 +64,7 @@ export default function Links() {
                 collisionDetection={closestCenter}
                 onDragEnd={onDragEndHandler}
             >
-                <div className='flex flex-col gap-6 mobile:grow'>
+                <div className='flex flex-col gap-6 md:grow'>
                     <Button.Secondary
                         onClick={() =>
                             addLink({ link: '', platform: platforms[0] })
@@ -76,11 +76,11 @@ export default function Links() {
                         <div
                             className={clsx(
                                 'p-11 px-5 bg-lsa-light-grey rounded-xl',
-                                'flex flex-col mobile:justify-center gap-3',
-                                'mobile:grow'
+                                'flex flex-col md:justify-center gap-3',
+                                'md:grow'
                             )}
                         >
-                            <div className='mobile:px-20 text-center flex flex-col items-center gap-6 mobile:gap-10'>
+                            <div className='md:px-20 text-center flex flex-col items-center gap-6 md:gap-10'>
                                 <PhoneMockupIllustration
                                     className={
                                         isMobile ? 'w-31 h-20' : undefined
