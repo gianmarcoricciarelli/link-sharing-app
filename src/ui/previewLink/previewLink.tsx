@@ -53,13 +53,20 @@ const iconForPlatForm: Record<Platform, SvgrIcon> = {
     'Stack Overflow': StackOverflowIcon
 }
 
-export default function PreviewLink({ platform }: { platform: Platform }) {
+export default function PreviewLink({
+    className,
+    platform
+}: {
+    className?: string
+    platform: Platform
+}) {
     const Icon = iconForPlatForm[platform]
 
     return (
         <div
             style={{ backgroundColor: platformsColors[platform] }}
             className={clsx(
+                className,
                 'w-full p-4',
                 'flex justify-between items-center',
                 'rounded-lg',
