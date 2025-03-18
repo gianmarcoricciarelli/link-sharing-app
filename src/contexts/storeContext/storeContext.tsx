@@ -15,7 +15,10 @@ interface StoreContextProps {
     setLoggedUser: (user: User) => void
     getLoggedUser: () => User | undefined
     getUsers: () => User[]
-    getUserByEmail: (email: string) => User | undefined
+    getUserByEmailAndPassword: (
+        email: string,
+        password: string
+    ) => User | undefined
     getLoggedUserLinks: () => Link[]
     setFirstName: (firstName: string) => void
     setLastName: (lastName: string) => void
@@ -28,7 +31,7 @@ export const StoreContext = createContext<StoreContextProps>({
     setLoggedUser: () => {},
     getLoggedUser: () => undefined,
     getUsers: () => [],
-    getUserByEmail: () => undefined,
+    getUserByEmailAndPassword: () => undefined,
     getLoggedUserLinks: () => [],
     setFirstName: () => {},
     setLastName: () => {},
@@ -61,8 +64,13 @@ export function StoreContextProvider({ children }: { children: ReactNode }) {
 
     const getUsers = (): User[] => store.users
 
-    const getUserByEmail = (email: string): User | undefined => {
-        return getUsers().find((u) => u.email === email)
+    const getUserByEmailAndPassword = (
+        email: string,
+        password: string
+    ): User | undefined => {
+        return getUsers().find(
+            (u) => u.email === email && u.password === password
+        )
     }
 
     const getLoggedUserLinks = (): Link[] => {
@@ -133,7 +141,7 @@ export function StoreContextProvider({ children }: { children: ReactNode }) {
                 setLoggedUser,
                 getLoggedUser,
                 getUsers,
-                getUserByEmail,
+                getUserByEmailAndPassword,
                 getLoggedUserLinks,
                 setFirstName,
                 setLastName,
