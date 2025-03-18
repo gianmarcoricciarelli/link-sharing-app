@@ -2,14 +2,12 @@ import clsx from 'clsx'
 import { MouseEventHandler, useContext, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router'
 
-import PhoneMockupIllustration from '@icons/illustration-phone-mockup.svg?react'
-
 import Button from '@ui/button/button'
-import PreviewLink from '@ui/previewLink/previewLink'
 
 import useResizeObserver from '@hooks/useResizeObserver'
 
 import NavBar from '@widgets/navbar/navbar'
+import PhoneMockup from '@widgets/phoneMockup/phoneMockup'
 
 import { DetailsContext } from '@contexts/detailsContext/detailsContext'
 import { LinkCustomizationContextProvider } from '@contexts/linkCustomizationContext/linkCustomizationContext'
@@ -62,27 +60,7 @@ function App() {
                 onTabClick={onTabClickHandler}
             />
             <div className={clsx('xl:px-6 xl:pb-6', 'grow flex')}>
-                {!isMobile && !isTablet && (
-                    <div className={clsx('w-140 p-4')}>
-                        <div className='w-full h-full bg-white rounded-xl flex justify-center items-center'>
-                            <div className='relative'>
-                                <PhoneMockupIllustration />
-                                {loggedUser?.links &&
-                                    loggedUser.links.length > 0 && (
-                                        <div className='absolute top-[278px] left-[35px] w-[237px] h-[300px] max-h-[300px] overflow-y-hidden flex flex-col gap-5'>
-                                            {loggedUser.links.map((l) => (
-                                                <PreviewLink
-                                                    key={l.platform}
-                                                    className='h-11'
-                                                    platform={l.platform}
-                                                />
-                                            ))}
-                                        </div>
-                                    )}
-                            </div>
-                        </div>
-                    </div>
-                )}
+                {!isMobile && !isTablet && <PhoneMockup />}
                 <div className='p-4 grow'>
                     <div
                         className={clsx(
